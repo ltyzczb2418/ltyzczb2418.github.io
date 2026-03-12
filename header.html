@@ -1,5 +1,8 @@
 <header class="site-header">
-  <div class="site-title">柳州铁一中学（初中部）- 2418班</div>
+  <div class="site-brand">
+    <img class="site-img" src="/img/tieyi.ico">
+    <span class="site-title">柳州铁一中学（初中部）- 2418班</span>
+  </div>
   
   <nav class="header-buttons nav-scroll" aria-label="主导航" tabindex="0">
     <a href="/index.html" class="header-link"><span class="header-btn">主页</span></a>
@@ -17,23 +20,36 @@
   align-items: center;
   justify-content: space-between;  /* 标题靠左，导航靠右 */
   padding: 8px 14px;
-  background: rgba(20,20,20,0.40);
+  background: rgba(255,255,255,0.80);
   backdrop-filter: blur(12px) saturate(130%);
   border-bottom: 1px solid rgba(255,255,255,0.03);
   height: 48px;
   box-sizing: border-box;
 }
 
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 45%;
+}
+
 /* 标题样式 */
 .site-title {
-  color: #fff;
+  color: rgb(99, 99, 99);
   font-weight: 700;
   font-size: 1.2rem;
   line-height: 1.2;
+  align-items: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 35%;           /* 防止标题过长挤压导航 */
+}
+
+.site-img {
+  height: 32px;
+  width: 32px;
+  flex-shrink: 0;
 }
 
 /* 导航容器：靠右，横向滚动 */
@@ -59,7 +75,7 @@
 .header-btn {
   display: inline-block;
   white-space: nowrap;
-  color: #E8E8E8;
+  color: #333;
   padding: 6px 10px;
   border-radius: 8px;
   transition: background .12s, color .12s, transform .08s;
@@ -67,9 +83,12 @@
   line-height: 1;
   scroll-snap-align: start;
 }
-.header-btn:hover, .header-btn:focus {
-  background: rgba(255,255,255,0.04);
-  color: #fff;
+
+/* 悬停 */
+.header-btn:hover,
+.header-btn:focus {
+  background: rgba(0,0,0,0.06);
+  color: #000;
   transform: translateY(-1px);
   outline: none;
 }
