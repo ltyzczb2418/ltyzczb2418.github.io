@@ -32,7 +32,7 @@ a {
     color: rgb(173, 216, 230);
 }
 
-/* 壁纸样式：必须在最底层 */
+/* 壁纸样式 */
 .wallpaper {
     position: fixed;
     top: 0;
@@ -44,7 +44,7 @@ a {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
+} 
 
 .wallpaper::before {
     content: '';
@@ -57,7 +57,7 @@ a {
     -webkit-backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, 0.5);
     pointer-events: none;
-}
+} 
 
 /* 2. 背景层：保持固定 (现在它在壁纸之上，内容之下) */
 .bg-container {
@@ -78,7 +78,7 @@ header {
     display: flex; align-items: center; justify-content: space-between;
 }
 
-.site-title { font-size: 1.42rem; font-weight: 700; color: #F5F5F5; letter-spacing: -0.5px; }
+.site-title { font-size: 1.25rem; font-weight: 700; color: #F5F5F5; letter-spacing: -0.5px; }
 .header-buttons { display: flex; gap: 0.5rem; }
 .header-link { text-decoration: none !important; color: inherit; }
 
@@ -112,14 +112,14 @@ main {
     text-align: center; padding: 4rem 2rem 2rem;
 }
 .intro-title { 
-    font-size: 3.2rem; font-weight: 800; letter-spacing: -1.5px; 
-    margin-bottom: 0.5rem; color: #F5F5F5; 
+    font-size: 5rem; font-weight: 500; letter-spacing: -1.5px; 
+    margin-bottom: 0.5rem; color: #F5F5F5; font-family: 'Times New Roman', Times, serif;
 }
 .intro-subtitle { 
     font-size: 1rem; letter-spacing: 2px; color: #B3B3B3;
 }
 
-/* 6. 文章卡片通用样式 */
+/* 6. 卡片通用样式 */
 .articles-section { max-width: 760px; margin: 0 auto; padding: 0 1.5rem 5rem; }
 .articles-title { font-size: 1.2rem; margin-bottom: 2rem; font-weight: 700; color: #F5F5F5; text-transform: uppercase; letter-spacing: 1px; }
 
