@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>柳州铁一中学2024级XX班级网页</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; margin:0; padding:0; background:#f5f5f5; }
+    header { background:linear-gradient(to right, #d32f2f, #1976d2); color:white; padding:20px; text-align:center; }
+    nav { background:#333; padding:10px; position:sticky; top:0; }
+    nav a { color:white; margin:0 15px; text-decoration:none; }
+    nav a:hover { text-decoration:underline; }
+    section { padding:40px; }
+    h2 { color:#1976d2; }
+    .gallery { display:flex; flex-wrap:wrap; gap:15px; }
+    .gallery img { width:200px; height:150px; object-fit:cover; border-radius:8px; }
+    .members { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px; }
+    .card { background:white; padding:15px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+    .interaction-wall { background:#fff3e0; padding:20px; border-radius:8px; }
+    .message { background:white; padding:10px; margin:10px 0; border-radius:5px; }
+    footer { background:#333; color:white; text-align:center; padding:20px; margin-top:40px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>柳州铁一中学2024级XX班</h1>
+    <p>AI赋能·我为我的班级代言</p>
+  </header>
+
+  <nav>
+    <a href="#class">班级特色</a>
+    <a href="#style">班级风采</a>
+    <a href="#members">成员风采</a>
+    <a href="#anniversary">八十周年校庆</a>
+    <a href="#interaction">祝福互动墙</a>
+  </nav>
+
+  <!-- 班级特色展示 -->
+  <section id="class">
+    <h2>班级特色展示</h2>
+    <p><strong>班名：</strong>XX班</p>
+    <p><strong>班徽：</strong><img src="class_logo.png" alt="班徽" width="100"></p>
+    <p><strong>班级口号：</strong>团结奋进，逐梦铁一</p>
+    <p><strong>班级目标：</strong>全面发展，勇攀高峰</p>
+    <p><strong>班主任：</strong>张老师</p>
+    <p><strong>班级人数：</strong>45人</p>
+  </section>
+
+  <!-- 班级风采展示 -->
+  <section id="style">
+    <h2>班级风采展示</h2>
+    <div class="gallery">
+      <img src="activity1.jpg" alt="运动会">
+      <img src="activity2.jpg" alt="科技节">
+      <img src="activity3.jpg" alt="社会实践">
+    </div>
+    <h3>班级荣誉</h3>
+    <ul>
+      <li>2025年校运动会团体第一名</li>
+      <li>2025年科技节创新奖</li>
+      <li>2026年市级优秀班集体</li>
+    </ul>
+  </section>
+
+  <!-- 成员风采展示 -->
+  <section id="members">
+    <h2>成员风采展示</h2>
+    <div class="members">
+      <div class="card">
+        <img src="member1.jpg" alt="班长" width="100%">
+        <p><strong>姓名：</strong>李华</p>
+        <p><strong>特长：</strong>篮球</p>
+        <p><strong>座右铭：</strong>拼搏成就梦想</p>
+      </div>
+      <div class="card">
+        <img src="member2.jpg" alt="学习之星" width="100%">
+        <p><strong>姓名：</strong>王芳</p>
+        <p><strong>特长：</strong>数学竞赛</p>
+        <p><strong>座右铭：</strong>勤学善思</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 八十周年校庆专属页 -->
+  <section id="anniversary">
+    <h2>铁一八十周年校庆</h2>
+    <h3>原创诗歌展示</h3>
+    <p>《铁一八十年》 —— 作者：XX班学生</p>
+    <blockquote>
+      八十载春秋，铁一育英才；<br>
+      青春逐梦路，辉煌共未来。
+    </blockquote>
+
+    <h3>校史时间线</h3>
+    <ul>
+      <li>1946年：柳州铁一中学成立</li>
+      <li>1986年：建校40周年庆典</li>
+      <li>2026年：建校80周年庆典</li>
+    </ul>
+  </section>
+
+  <!-- 特色栏目：祝福互动墙 -->
+  <section id="interaction">
+    <h2>祝福互动墙</h2>
+    <div class="interaction-wall">
+      <form id="messageForm">
+        <input type="text" id="name" placeholder="姓名" required>
+        <input type="text" id="wish" placeholder="祝福语" required>
+        <button type="submit">发布</button>
+      </form>
+      <div id="messages"></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 柳州铁一中学2024级XX班 | AI工具：豆包、文心一言、讯飞星火</p>
+  </footer>
+
+  <script>
+    // 简单的互动墙功能
+    const form = document.getElementById('messageForm');
+    const messages = document.getElementById('messages');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const wish = document.getElementById('wish').value;
+      const msg = document.createElement('div');
+      msg.className = 'message';
+      msg.innerHTML = `<strong>${name}：</strong> ${wish}`;
+      messages.appendChild(msg);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
