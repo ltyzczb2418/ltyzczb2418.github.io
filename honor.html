@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>班级荣誉</title>
+    <title>柳铁一中（初中部）2418班</title>
     <link rel="stylesheet" href="/style.css">
+    <div w3-include-html="/wallpaper.html"></div>
     <style>
         /* 全局样式重置 */
         * {
@@ -16,754 +17,355 @@
             word-break: break-all;
         }
 
-        /* 背景样式 */
-        html {
-            min-height: 100vh;
+        /* 核心：设置页面弹性布局，让页脚固定底部 */
+        html, body {
+            height: 100%; /* 必须设置高度100% */
+            min-height: 100vh; /* 兼容移动端 */
+        }
+        body {
             background-image: url('https://picui.ogmua.cn/s1/2026/03/12/69b24ea329e74.webp');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
-            background-color: rgba(0, 0, 0, 0.5);
-            background-blend-mode: overlay;
-        }
-
-        body {
-            min-height: 100vh;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.5);
+            background-blend-mode: overlay;
             color: #333;
             line-height: 1.6;
-            padding-top: 60px;
+            padding-top: 60px; /* 避开固定导航栏 */
+            
+            /* 关键：弹性布局 */
             display: flex;
-            flex-direction: column;
-            background: transparent;
+            flex-direction: column; /* 垂直排列 */
         }
 
-        /* 内容容器 */
+        /* 核心：内容区自动填充剩余空间 */
         .page-content {
-            flex: 1;
-            background: transparent;
-            padding: 20px 0;
+            flex: 1; /* 占满除了头部和页脚的所有空间 */
         }
 
+        /* 容器样式 */
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 0 15px;
-            background: transparent;
         }
 
-        /* 顶部切换标签（勋章墙/荣誉榜） */
-        .view-tabs {
+        /* 分类标签样式 */
+        .category-tabs {
             display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        .view-btn {
-            padding: 10px 24px;
+        .tab-btn {
+            padding: 8px 16px;
             border: none;
             border-radius: 8px;
             background: rgba(255,255,255,0.8);
-            color: #150101;
+            color: #333;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-weight: 600;
+            transition: all 0.2s ease; /* 标签切换动效 */
+            font-size: 0.9rem;
         }
-        .view-btn.active {
+        .tab-btn.active {
             background: rgb(99,99,99);
             color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px); /* 激活标签上移动效 */
         }
-        .view-btn:hover {
+        .tab-btn:hover {
             background: rgba(99,99,99,0.8);
             color: white;
         }
 
-        /* 导航栏样式 */
-        .site-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 14px;
-            background: rgb(255,255,255);
-            backdrop-filter: blur(12px) saturate(130%);
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            height: 48px;
-            box-sizing: border-box;
-        }
-        .site-brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            max-width: 45%;
-        }
-        .site-title {
-            color: rgb(99, 99, 99);
-            font-weight: 700;
-            font-size: 1.2rem;
-            line-height: 1.2;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .site-img {
-            height: 32px;
-            width: 32px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .nav-scroll {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            padding: 4px 2px;
-            align-items: center;
-            max-width: 65%;
-            height: 100%;
-            scroll-snap-type: x mandatory;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .nav-scroll::-webkit-scrollbar { display: none; }
-        .header-link { text-decoration: none; }
-        .header-btn {
-            display: inline-block;
-            white-space: nowrap;
-            color: #333;
-            padding: 6px 10px;
-            border-radius: 8px;
-            transition: background .12s, color .12s, transform .08s;
-            font-size: 0.88rem;
-            line-height: 1;
-            scroll-snap-align: start;
-        }
-        .header-btn:hover, .header-btn:focus {
-            background: rgba(0,0,0,0.06);
-            color: #000;
-            transform: translateY(-1px);
-            outline: none;
+        /* 荣誉卡片网格 */
+        .honor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        /* 1. 2418班3D图片勋章墙核心样式 */
-        .medal-wall {
-            display: block; /* 默认显示图片勋章墙 */
-            padding: 40px 0;
-            perspective: 1800px; /* 增强3D透视效果 */
-        }
-        .medal-wall.hidden {
-            display: none;
-        }
-        .medal-title {
-            text-align: center;
-            color: white;
-            font-size: 1.8rem;
-            margin-bottom: 40px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-        /* 3D旋转容器 - 优化尺寸和动画 */
-        .medal-3d-container {
-            position: relative;
-            width: 90%;
-            height: 500px;
-            margin: 0 auto;
-            transform-style: preserve-3d;
-            animation: rotate3d 25s linear infinite; /* 放慢旋转速度，更舒适 */
-        }
-        /* 鼠标悬浮暂停旋转 */
-        .medal-3d-container:hover {
-            animation-play-state: paused;
-        }
-        /* 单个图片勋章样式 - 核心修改 */
-        .medal-item {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 180px; /* 增大勋章尺寸，突出图片 */
-            height: 180px;
-            transform-origin: center;
-            transform-style: preserve-3d;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 弹性动画 */
-            border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-        }
-        /* 勋章正反面（均为图片） */
-        .medal-front, .medal-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 5px solid rgba(255,255,255,0.9);
-        }
-        /* 正面：荣誉实景图片 */
-        .medal-front {
-            background: #fff;
-        }
-        /* 背面：荣誉名称+等级 */
-        .medal-back {
-            background: linear-gradient(135deg, #636363, #888);
-            transform: rotateY(180deg);
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        /* 勋章图片样式 - 核心 */
-        .medal-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-            filter: brightness(0.95);
-        }
-        .medal-item:hover .medal-img {
-            transform: scale(1.05);
-            filter: brightness(1.05);
-        }
-        /* 勋章背面文字 */
-        .medal-name {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .medal-level {
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
-        /* 3D空间分布 - 8个勋章均匀分布 */
-        .medal-item:nth-child(1) { transform: translate(-50%, -50%) rotateY(0deg) translateZ(280px); }
-        .medal-item:nth-child(2) { transform: translate(-50%, -50%) rotateY(45deg) translateZ(280px); }
-        .medal-item:nth-child(3) { transform: translate(-50%, -50%) rotateY(90deg) translateZ(280px); }
-        .medal-item:nth-child(4) { transform: translate(-50%, -50%) rotateY(135deg) translateZ(280px); }
-        .medal-item:nth-child(5) { transform: translate(-50%, -50%) rotateY(180deg) translateZ(280px); }
-        .medal-item:nth-child(6) { transform: translate(-50%, -50%) rotateY(225deg) translateZ(280px); }
-        .medal-item:nth-child(7) { transform: translate(-50%, -50%) rotateY(270deg) translateZ(280px); }
-        .medal-item:nth-child(8) { transform: translate(-50%, -50%) rotateY(315deg) translateZ(280px); }
-        /* 3D旋转动画 */
-        @keyframes rotate3d {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        /* 不同等级勋章边框样式 */
-        .medal-item.first .medal-front { border-color: #ffd700; } /* 一等奖-金色边框 */
-        .medal-item.second .medal-front { border-color: #c0c0c0; } /* 二等奖-银色边框 */
-        .medal-item.third .medal-front { border-color: #cd7f32; } /* 三等奖-铜色边框 */
-        .medal-item.other .medal-front { border-color: #636363; } /* 其他-灰色边框 */
-        /* 勋章hover放大+上浮效果 */
-        .medal-item:hover {
-            transform: translate(-50%, -50%) rotateY(var(--rotate)) translateZ(350px) scale(1.15);
-            z-index: 20;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-        }
-
-        /* 勋章详情面板 */
-        .medal-detail {
-            margin-top: 80px;
+        /* 荣誉卡片样式 + 动态hover效果 */
+        .honor-card {
             background: rgba(255,255,255,0.9);
             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease; /* 卡片整体动效 */
+            cursor: pointer;
         }
-        .detail-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+        .honor-card:hover {
+            transform: translateY(-8px); /* 鼠标悬浮上移 */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* 悬浮加深阴影 */
+        }
+        .honor-badge {
+            background: rgb(99,99,99);
+            color: white;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .card-img img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease; /* 图片缩放动效 */
+        }
+        .honor-card:hover .card-img img {
+            transform: scale(1.05); /* 悬浮时图片轻微放大 */
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
             color: #333;
-            border-bottom: 2px solid #636363;
-            padding-bottom: 8px;
         }
-        .medal-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-        }
-        .medal-detail-item {
-            padding: 12px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.8);
-            border-left: 4px solid #ffd700;
-        }
-        .medal-detail-item.first { border-left-color: #ffd700; }
-        .medal-detail-item.second { border-left-color: #c0c0c0; }
-        .medal-detail-item.third { border-left-color: #cd7f32; }
-        .medal-detail-item.other { border-left-color: #636363; }
-        
-        .medal-detail-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        .medal-detail-meta {
+        .card-meta {
             display: flex;
             justify-content: space-between;
             font-size: 0.8rem;
             color: #666;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
-        .medal-detail-desc {
-            font-size: 0.85rem;
-            color: #666;
+        .card-desc {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
         }
 
-        /* 2. 2418班荣誉排行榜 */
-        .honor-rank {
-            display: none; /* 默认隐藏，切换显示 */
-            padding: 20px 0;
+        /* header 样式（导航栏） */
+        .site-header {
+          position: fixed;
+          top: 0; left: 0; right: 0;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 8px 14px;
+          background: rgb(255,255,255);
+          backdrop-filter: blur(12px) saturate(130%);
+          border-bottom: 1px solid rgba(255,255,255,0.03);
+          height: 48px;
+          box-sizing: border-box;
         }
-        .honor-rank.active {
-            display: block;
-        }
-        .rank-title {
-            text-align: center;
-            color: white;
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-        /* 排行榜头部 */
-        .rank-header {
-            display: flex;
-            justify-content: space-between;
-            background: rgba(99,99,99,0.8);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px 8px 0 0;
-            font-weight: 600;
-        }
-        /* 排行榜列表 */
-        .rank-list {
-            background: rgba(255,255,255,0.9);
-            border-radius: 0 0 8px 8px;
-            overflow: hidden;
-        }
-        .rank-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 20px;
-            border-bottom: 1px solid #eee;
-            transition: background 0.2s ease;
-        }
-        .rank-item:hover {
-            background: rgba(99,99,99,0.1);
-        }
-        .rank-item:last-child {
-            border-bottom: none;
-        }
-        /* 不同等级荣誉样式 */
-        .rank-item.first {
-            background: linear-gradient(90deg, rgba(255,215,0,0.1), transparent);
-        }
-        .rank-item.second {
-            background: linear-gradient(90deg, rgba(192,192,192,0.1), transparent);
-        }
-        .rank-item.third {
-            background: linear-gradient(90deg, rgba(205,127,50,0.1), transparent);
-        }
-        .rank-item.other {
-            background: linear-gradient(90deg, rgba(99,99,99,0.05), transparent);
-        }
-        /* 排行榜列定义 */
-        .rank-num { width: 8%; text-align: center; font-weight: 600; }
-        .rank-honor { width: 55%; }
-        .rank-level { width: 15%; text-align: center; }
-        .rank-date { width: 22%; text-align: center; }
 
-        /* 页脚样式 */
+        .site-brand {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          max-width: 45%;
+        }
+
+        .site-title {
+          color: rgb(99, 99, 99);
+          font-weight: 700;
+          font-size: 1.2rem;
+          line-height: 1.2;
+          align-items: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .site-img {
+          height: 32px;
+          width: 32px;
+          flex-shrink: 0;
+        }
+
+        .nav-scroll {
+          display: flex;
+          gap: 10px;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scroll-behavior: smooth;
+          padding: 4px 2px;
+          align-items: center;
+          max-width: 65%;
+          height: 100%;
+          scroll-snap-type: x mandatory;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .nav-scroll::-webkit-scrollbar { display: none; }
+
+        .header-link { text-decoration: none; }
+        .header-btn {
+          display: inline-block;
+          white-space: nowrap;
+          color: #333;
+          padding: 6px 10px;
+          border-radius: 8px;
+          transition: background .12s, color .12s, transform .08s;
+          font-size: 0.88rem;
+          line-height: 1;
+          scroll-snap-align: start;
+        }
+
+        .header-btn:hover,
+        .header-btn:focus {
+          background: rgba(0,0,0,0.06);
+          color: #000;
+          transform: translateY(-1px); /* 按钮悬浮上移 */
+          outline: none;
+        }
+
+        .nav-scroll { cursor: grab; }
+        .nav-scroll:active { cursor: grabbing; }
+
+        /* 页脚样式 - 固定在底部 */
         .footer {
             text-align: center;
             padding: 20px;
             color: #fffffffe;
             font-size: 0.8rem;
-            border-top: 1px solid rgb(0, 0, 0);
+            /* 可选：加个上边框区分内容 */
+            border-top: 1px solid rgba(0,0,0,0.1);
+            /* 确保页脚不被内容遮挡 */
             z-index: 10;
             background: rgba(255, 255, 255, 0.031);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            margin-top: auto;
-        }
-
-        /* 响应式适配 - 重点优化移动端图片显示 */
-        @media (max-width: 768px) {
-            .medal-3d-container {
-                width: 98%;
-                height: 400px;
-            }
-            .medal-item {
-                width: 120px;
-                height: 120px;
-            }
-            .medal-item:nth-child(n) {
-                transform: translate(-50%, -50%) rotateY(var(--rotate)) translateZ(200px);
-            }
-            .medal-item:hover {
-                transform: translate(-50%, -50%) rotateY(var(--rotate)) translateZ(250px) scale(1.1);
-            }
-            .medal-name {
-                font-size: 0.8rem;
-            }
-            .rank-header, .rank-item {
-                font-size: 0.8rem;
-                padding: 10px 15px;
-            }
-            .rank-num { width: 10%; }
-            .rank-honor { width: 50%; }
-            .rank-level { width: 15%; }
-            .rank-date { width: 25%; }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- 页面头部（导航栏） -->
     <header class="site-header">
-        <div class="site-brand">
-            <img class="site-img" src="/img/班徽.png" loading="lazy">
-            <span class="site-title">柳州铁一中学（初中部）- 2418班</span>
-        </div>
-        <nav class="header-buttons nav-scroll" aria-label="主导航" tabindex="0">
-            <a href="/index.html" class="header-link"><span class="header-btn">主页</span></a>
-            <a href="/honor.html" class="header-link"><span class="header-btn" style="background:rgb(99,99,99); color: white;">2418班荣誉勋章系统</span></a>
-            <a href="/ty80y.html" class="header-link"><span class="header-btn">铁一80周年校庆专页</span></a>
-        </nav>
+      <div class="site-brand">
+        <img class="site-img" src="/img/班徽.png">
+        <span class="site-title">柳州铁一中学（初中部）- 2418班</span>
+      </div>
+      
+      <nav class="header-buttons nav-scroll" aria-label="主导航" tabindex="0">
+        <a href="/index.html" class="header-link"><span class="header-btn">主页</span></a>
+        <!-- 激活当前页：班级荣誉 -->
+        <a href="/honor.html" class="header-link"><span class="header-btn" style="background:rgb(99,99,99); color: white;">班级荣誉</span></a>
+        <a href="/ty80y.html" class="header-link"><span class="header-btn">铁一80周年校庆专页</span></a>
+      </nav>
     </header>
 
-    <!-- 核心内容区 -->
+    <!-- 核心：新增内容容器，用于填充剩余空间 -->
     <div class="page-content">
+        <!-- 主要内容容器 -->
         <div class="container">
-            <!-- 视图切换标签（3D图片勋章墙/荣誉榜） -->
-            <div class="view-tabs">
-                <button class="view-btn active" id="medalTab">3D图片勋章墙</button>
-                <button class="view-btn" id="honorTab">2418班荣誉榜</button>
+            <!-- 荣誉分类标签 -->
+            <div class="category-tabs">
+                <button class="tab-btn active">全部荣誉</button>
             </div>
 
-            <!-- 1. 2418班专属3D图片勋章墙（核心） -->
-            <div class="medal-wall" id="medalWall">
-                <h2 class="medal-title">2418班 · 3D图片荣誉勋章墙</h2>
-                <!-- 3D旋转图片勋章容器 -->
-                <div class="medal-3d-container">
-                    <!-- 一等奖勋章（图片版） -->
-                    <div class="medal-item first" style="--rotate: 0deg;">
-                        <div class="medal-front">
-                            <img src="/img/a1.webp" alt="山河同庆黑板报一等奖" class="medal-img" loading="lazy">
-                        </div>
-                        <div class="medal-back">
-                            <div class="medal-name">山河同庆黑板报</div>
-                            <div class="medal-level">校级一等奖 | 2025.09</div>
-                        </div>
+            <!-- 荣誉卡片展示区 -->
+            <div class="honor-grid">
+                <!-- 荣誉卡片1 -->
+                <div class="honor-card">
+                    <div class="honor-badge">校级一等奖</div>
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/grade1/800/500" alt="运动会团体总分第一">
                     </div>
-                    <!-- 二等奖勋章（图片版） -->
-                    <div class="medal-item second" style="--rotate: 45deg;">
-                        <div class="medal-front">
-                            <img src="/img/a2.webp" alt="学雷锋黑板报二等奖" class="medal-img" loading="lazy">
+                    <div class="card-content">
+                        <h3 class="card-title">2025年春季校运动会初中二年级组团体总分第一名</h3>
+                        <div class="card-meta">
+                            <span>2025年4月28日</span>
+                            <span>体育类集体荣誉</span>
                         </div>
-                        <div class="medal-back">
-                            <div class="medal-name">学雷锋黑板报</div>
-                            <div class="medal-level">校级二等奖 | 2025.03</div>
-                        </div>
-                    </div>
-                    <!-- 三等奖勋章（图片版） -->
-                    <div class="medal-item third" style="--rotate: 90deg;">
-                        <div class="medal-front">
-                            <img src="/img/a3.webp" alt="运动会开幕式三等奖" class="medal-img" loading="lazy">
-                        </div>
-                        <div class="medal-back">
-                            <div class="medal-name">运动会开幕式</div>
-                            <div class="medal-level">校级三等奖 | 2025.04</div>
-                        </div>
-                    </div>
-                    <!-- 三等奖勋章（图片版） -->
-                    <div class="medal-item third" style="--rotate: 135deg;">
-                        <div class="medal-front">
-                            <img src="/img/a4.webp" alt="校园合唱比赛三等奖" class="medal-img" loading="lazy">
-                        </div>
-                        <div class="medal-back">
-                            <div class="medal-name">校园合唱比赛</div>
-                            <div class="medal-level">集团三等奖 | 2024.09</div>
-                        </div>
-                    </div>
-                    <!-- 三等奖勋章（图片版） -->
-                    <div class="medal-item third" style="--rotate: 180deg;">
-                        <div class="medal-front">
-                            <img src="/img/a5.webp" alt="消防安全黑板报三等奖" class="medal-img" loading="lazy">
-                        </div>
-                        <div class="medal-back">
-                            <div class="medal-name">消防安全黑板报</div>
-                            <div class="medal-level">校级三等奖 | 2024.12</div>
-                        </div>
-                    </div>
-                    <!-- 三等奖勋章（图片版） -->
-                    <div class="medal-item third" style="--rotate: 225deg;">
-                        <div class="medal-front">
-                            <img src="/img/a6.webp" alt="防溺水黑板报三等奖" class="medal-img" loading="lazy">
-                        </div>
-                        <div class="medal-back">
-                            <div class="medal-name">防溺水安全黑板报</div>
-                            <div class="medal-level">校级三等奖 | 2025.05</div>
-                        </div>
-                    </div>
-                    <!-- 其他名次勋章（图片版） -->
-                    <div class="medal-item other" style="--rotate: 270deg;">
-                        <div class="medal-front">
-                            <img src="/img/a7.webp" alt="鱼贯跳绳第七名" class="medal-img" loading="lazy">
-                        </div>
-                        <div class="medal-back">
-                            <div class="medal-name">鱼贯跳绳项目</div>
-                            <div class="medal-level">初二组第七名 | 2025.11</div>
-                        </div>
-                    </div>
-                    <!-- 其他名次勋章（图片版） -->
-                    <div class="medal-item other" style="--rotate: 315deg;">
-                        <div class="medal-front">
-                            <img src="/img/a8.webp" alt="4×400米第八名" class="medal-img" loading="lazy">
-                        </div>
-                        <div class="medal-back">
-                            <div class="medal-name">4×400米接力</div>
-                            <div class="medal-level">初一组第八名 | 2025.04</div>
-                        </div>
+                        <p class="card-desc">在2025年春季校运会上，我班同学奋勇拼搏，在短跑、跳远、跳高、接力赛等多个项目中取得优异成绩，最终以总分286分荣获全校初中二年级组团体第一名。</p>
                     </div>
                 </div>
-
-                <!-- 勋章详情面板 -->
-                <div class="medal-detail">
-                    <h3 class="detail-title">2418班荣誉详情</h3>
-                    <div class="medal-list">
-                        <div class="medal-detail-item first">
-                            <div class="medal-detail-name">“山河同庆，月满家园” 主题黑板报评比活动</div>
-                            <div class="medal-detail-meta">
-                                <span>一等奖</span>
-                                <span>2025年9月19日</span>
-                            </div>
-                            <div class="medal-detail-desc">2418班在2025年中秋主题黑板报评比中荣获校级一等奖</div>
-                        </div>
-                        <div class="medal-detail-item second">
-                            <div class="medal-detail-name">“学雷锋” 主题黑板报评比活动</div>
-                            <div class="medal-detail-meta">
-                                <span>二等奖</span>
-                                <span>2025年3月9日</span>
-                            </div>
-                            <div class="medal-detail-desc">2418班在学雷锋主题黑板报评比中荣获校级二等奖</div>
-                        </div>
-                        <div class="medal-detail-item third">
-                            <div class="medal-detail-name">第十届春季田径运动会开幕式</div>
-                            <div class="medal-detail-meta">
-                                <span>三等奖</span>
-                                <span>2025年4月30日</span>
-                            </div>
-                            <div class="medal-detail-desc">2418班在春季运动会开幕式评比中荣获校级三等奖</div>
-                        </div>
-                        <div class="medal-detail-item third">
-                            <div class="medal-detail-name">第八届校园合唱比赛</div>
-                            <div class="medal-detail-meta">
-                                <span>三等奖</span>
-                                <span>2024年9月29日</span>
-                            </div>
-                            <div class="medal-detail-desc">2418班在校园合唱比赛中荣获教育集团三等奖</div>
-                        </div>
-                        <div class="medal-detail-item third">
-                            <div class="medal-detail-name">“消防、一氧化碳安全” 主题黑板报评比</div>
-                            <div class="medal-detail-meta">
-                                <span>三等奖</span>
-                                <span>2024年12月27日</span>
-                            </div>
-                            <div class="medal-detail-desc">2418班在安全主题黑板报评比中荣获校级三等奖</div>
-                        </div>
-                        <div class="medal-detail-item third">
-                            <div class="medal-detail-name">“交通、防溺水安全” 主题黑板报评比</div>
-                            <div class="medal-detail-meta">
-                                <span>三等奖</span>
-                                <span>2025年5月16日</span>
-                            </div>
-                            <div class="medal-detail-desc">2418班在安全主题黑板报评比中荣获校级三等奖</div>
-                        </div>
-                        <div class="medal-detail-item other">
-                            <div class="medal-detail-name">第十一届全民达标运动会初二组鱼贯跳绳</div>
-                            <div class="medal-detail-meta">
-                                <span>第七名</span>
-                                <span>2025年11月7日</span>
-                            </div>
-                            <div class="medal-detail-desc">2418班在达标运动会跳绳项目中获得初二组第七名</div>
-                        </div>
-                        <div class="medal-detail-item other">
-                            <div class="medal-detail-name">第十届田径运动会初一男子4×400米</div>
-                            <div class="medal-detail-meta">
-                                <span>第八名</span>
-                                <span>2025年4月30日</span>
-                            </div>
-                            <div class="medal-detail-desc">2418班在田径运动会接力项目中获得初一组第八名</div>
-                        </div>
+                <!-- 可继续添加更多卡片 -->
+                <div class="honor-card">
+                    <div class="honor-badge">市级二等奖</div>
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/grade2/800/500" alt="科技创新大赛">
                     </div>
-                </div>
-            </div>
-
-            <!-- 2. 2418班专属荣誉榜 -->
-            <div class="honor-rank" id="honorRank">
-                <h2 class="rank-title">2418班 · 荣誉总榜</h2>
-                
-                <!-- 荣誉排行榜 -->
-                <div class="rank-header">
-                    <div class="rank-num">序号</div>
-                    <div class="rank-honor">荣誉名称</div>
-                    <div class="rank-level">荣誉等级</div>
-                    <div class="rank-date">获取时间</div>
-                </div>
-                <div class="rank-list">
-                    <div class="rank-item first">
-                        <div class="rank-num">1</div>
-                        <div class="rank-honor">“山河同庆，月满家园” 主题黑板报评比活动</div>
-                        <div class="rank-level">一等奖</div>
-                        <div class="rank-date">2025年9月19日</div>
-                    </div>
-                    <div class="rank-item second">
-                        <div class="rank-num">2</div>
-                        <div class="rank-honor">“学雷锋” 主题黑板报评比活动</div>
-                        <div class="rank-level">二等奖</div>
-                        <div class="rank-date">2025年3月9日</div>
-                    </div>
-                    <div class="rank-item third">
-                        <div class="rank-num">3</div>
-                        <div class="rank-honor">2025年春季田径运动会开幕式</div>
-                        <div class="rank-level">三等奖</div>
-                        <div class="rank-date">2025年4月30日</div>
-                    </div>
-                    <div class="rank-item third">
-                        <div class="rank-num">4</div>
-                        <div class="rank-honor">第八届校园合唱比赛</div>
-                        <div class="rank-level">三等奖</div>
-                        <div class="rank-date">2024年9月29日</div>
-                    </div>
-                    <div class="rank-item third">
-                        <div class="rank-num">5</div>
-                        <div class="rank-honor">“消防、一氧化碳安全” 主题黑板报评比</div>
-                        <div class="rank-level">三等奖</div>
-                        <div class="rank-date">2024年12月27日</div>
-                    </div>
-                    <div class="rank-item third">
-                        <div class="rank-num">6</div>
-                        <div class="rank-honor">“交通、防溺水安全” 主题黑板报评比</div>
-                        <div class="rank-level">三等奖</div>
-                        <div class="rank-date">2025年5月16日</div>
-                    </div>
-                    <div class="rank-item other">
-                        <div class="rank-num">7</div>
-                        <div class="rank-honor">第十一届全民达标运动会初二组鱼贯跳绳</div>
-                        <div class="rank-level">第七名</div>
-                        <div class="rank-date">2025年11月7日</div>
-                    </div>
-                    <div class="rank-item other">
-                        <div class="rank-num">8</div>
-                        <div class="rank-honor">第十届田径运动会初一男子4×400米</div>
-                        <div class="rank-level">第八名</div>
-                        <div class="rank-date">2025年4月30日</div>
+                    <div class="card-content">
+                        <h3 class="card-title">2025年柳州市青少年科技创新大赛团体二等奖</h3>
+                        <div class="card-meta">
+                            <span>2025年3月15日</span>
+                            <span>科技类集体荣誉</span>
+                        </div>
+                        <p class="card-desc">我班团队提交的“AI校园垃圾分类助手”项目，在柳州市青少年科技创新大赛中表现优异，荣获初中组团体二等奖。</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 页脚 -->
+    <!-- 页脚 - 现在会始终在底部 -->
     <footer class="footer">
-        <p>内容由豆包生成90%</p>
+        <p>豆包人工生成</p>
     </footer>
 
-    <!-- 交互脚本 -->
+    <!-- 所有动态效果脚本 -->
     <script>
-        // 1. 导航栏拖拽滚动
+        // 1. 导航栏拖拽滚动 + 键盘控制
         (function(){
-            const scroller = document.querySelector('.nav-scroll');
-            if (!scroller) return;
-            let isDown = false;
-            let startX, scrollLeft;
+          const scroller = document.querySelector('.nav-scroll');
+          if (!scroller) return;
 
-            scroller.addEventListener('mousedown', (e) => {
-                isDown = true;
-                scroller.classList.add('dragging');
-                startX = e.pageX - scroller.offsetLeft;
-                scrollLeft = scroller.scrollLeft;
-                e.preventDefault();
-            });
+          // 鼠标拖拽滑动
+          let isDown = false;
+          let startX, scrollLeft;
 
-            document.addEventListener('mouseup', () => {
-                isDown = false;
-                scroller.classList.remove('dragging');
-            });
+          // 鼠标按下
+          scroller.addEventListener('mousedown', (e) => {
+            isDown = true;
+            scroller.classList.add('dragging');
+            startX = e.pageX - scroller.offsetLeft;
+            scrollLeft = scroller.scrollLeft;
+            e.preventDefault(); // 防止默认选中文字
+          });
 
-            document.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                const x = e.pageX - scroller.offsetLeft;
-                const walk = (x - startX) * 1.1;
-                scroller.scrollLeft = scrollLeft - walk;
-            });
+          // 鼠标松开（全局监听，防止鼠标移出导航栏后无法松开）
+          document.addEventListener('mouseup', () => {
+            isDown = false;
+            scroller.classList.remove('dragging');
+          });
 
-            scroller.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
-                    scroller.scrollBy({ left: 100, behavior: 'smooth' });
-                    e.preventDefault();
-                }
-                if (e.key === 'ArrowLeft') {
-                    scroller.scrollBy({ left: -100, behavior: 'smooth' });
-                    e.preventDefault();
-                }
-            });
+          // 鼠标移动
+          document.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            const x = e.pageX - scroller.offsetLeft;
+            const walk = (x - startX) * 1.1; // 1.1是滑动速度系数
+            scroller.scrollLeft = scrollLeft - walk;
+          });
+
+          // 键盘左右键滚动
+          scroller.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+              scroller.scrollBy({ left: 100, behavior: 'smooth' });
+              e.preventDefault();
+            }
+            if (e.key === 'ArrowLeft') {
+              scroller.scrollBy({ left: -100, behavior: 'smooth' });
+              e.preventDefault();
+            }
+          });
         })();
 
-        // 2. 视图切换（3D图片勋章墙/荣誉榜）
-        const medalTab = document.getElementById('medalTab');
-        const honorTab = document.getElementById('honorTab');
-        const medalWall = document.getElementById('medalWall');
-        const honorRank = document.getElementById('honorRank');
-
-        medalTab.addEventListener('click', () => {
-            // 切换按钮状态
-            medalTab.classList.add('active');
-            honorTab.classList.remove('active');
-            // 切换视图
-            medalWall.classList.remove('hidden');
-            honorRank.classList.remove('active');
-            honorRank.classList.add('hidden');
+        // 2. 分类标签切换动效
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有标签的active类
+                tabBtns.forEach(b => b.classList.remove('active'));
+                // 给当前点击的标签加active类（带动效）
+                btn.classList.add('active');
+                
+                // 如果需要实现标签筛选逻辑，可在这里补充
+                // 比如：根据标签筛选卡片显示/隐藏
+            });
         });
 
-        honorTab.addEventListener('click', () => {
-            // 切换按钮状态
-            honorTab.classList.add('active');
-            medalTab.classList.remove('active');
-            // 切换视图
-            medalWall.classList.add('hidden');
-            honorRank.classList.add('active');
-            honorRank.classList.remove('hidden');
-        });
-
-        // 3. 勋章hover增强交互（双击查看背面）
-        const medalItems = document.querySelectorAll('.medal-item');
-        medalItems.forEach(item => {
-            let isFlipped = false;
-            
-            // 鼠标悬浮高亮
-            item.addEventListener('mouseenter', () => {
-                item.style.zIndex = 20;
-            });
-            item.addEventListener('mouseleave', () => {
-                if (!isFlipped) {
-                    item.style.zIndex = 1;
-                }
-            });
-
-            // 双击翻转勋章（查看正面/背面）
-            item.addEventListener('dblclick', () => {
-                isFlipped = !isFlipped;
-                if (isFlipped) {
-                    item.style.transform = `translate(-50%, -50%) rotateY(${parseInt(item.style.getPropertyValue('--rotate')) + 180}deg) translateZ(350px) scale(1.15)`;
-                } else {
-                    item.style.transform = `translate(-50%, -50%) rotateY(${parseInt(item.style.getPropertyValue('--rotate'))}deg) translateZ(350px) scale(1.15)`;
-                }
+        // 3. 可选：卡片点击轻微缩放动效（增强交互）
+        const honorCards = document.querySelectorAll('.honor-card');
+        honorCards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-8px) scale(1)';
+                }, 100);
             });
         });
     </script>
