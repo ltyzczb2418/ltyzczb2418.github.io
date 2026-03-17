@@ -1,174 +1,193 @@
-/* 1. 全局基础设置 */
+/* ===== 全局基础 ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-    /* tap-highlight-color: transparent; */
 }
 
-body { 
-    font-family: 'Segoe UI', 'PingFang SC', system-ui, sans-serif; 
-    color: #E0E0E0; 
-    background: #121212; 
-    min-height: 100vh; 
-    display: flex; 
-    flex-direction: column; 
-}
-
-blockquote {
-    display: block;
-    margin: 0rem 0;
-    padding: 0.5rem 0.5rem;
-    border-left: 3px solid #4CAF50;
-    background-color: rgba(0, 0, 0, 0.15);
-    font-family: "Noto Serif SC", "Songti SC", "STSong", "华文宋体", "宋体", "SimSun", "AR PL UMing CN", "WenQuanYi Bitmap Song", serif;
-    font-style: oblique;
+body {
+    font-family: 'Segoe UI', 'PingFang SC', system-ui, sans-serif;
     color: #E0E0E0;
+    background: #121212;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 链接样式 */
 a {
     color: rgb(173, 216, 230);
 }
 
-h1 {
-    color: rgb(0,0,0);
-}
-
-.home-content-p {
-    color: #121212;
-}
-
-/* 壁纸样式 */
-.wallpaper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -3; /* 比 .bg-container(-2) 还要低 */
-    background-image: url('https://webcnstatic.yostar.net/ba_cn_web/prod/upload/wallpaper/X0_6rTZl.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-} 
-
-.wallpaper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 0, 0.5);
-    pointer-events: none;
-} 
-
-/* 2. 背景层：保持固定 (现在它在壁纸之上，内容之下) */
-.bg-container {
-    position: fixed; 
-    inset: 0; 
-    z-index: -2; 
-    background: #121212;
-}
-
-/* 3. 导航栏：固定在顶部 */
-header {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(30, 30, 30, 0.7);
-    padding: 0.75rem 1.4rem;
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    display: flex; align-items: center; justify-content: space-between;
-}
-
-.site-title { font-size: 1.25rem; font-weight: 700; color: #F5F5F5; letter-spacing: -0.5px; }
-.header-buttons { display: flex; gap: 0.5rem; }
-.header-link { text-decoration: none !important; color: inherit; }
-
-.header-btn {
-    background: rgba(255, 255, 255, 0.05); 
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    border-radius: 8px;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.84rem;
-    color: #B3B3B3; cursor: pointer;
-    transition: all .2s ease;
-}
-
-.background-panel {
-  background-color: rgba(255, 255, 255, 0.7); /* 白色，70%不透明度 */
-  width: 80%;        /* 宽度可根据需要调整 */
-  margin: 0 auto;    /* 居中 */
-  padding: 20px;     /* 内边距 */
-  border-radius: 10px; /* 圆角效果 */
-}
-
-/* 按钮激活与悬停效果 */
-.header-link:hover .header-btn, .header-btn.active {
-    background: #2C2C2C;
-    color: #E0E0E0;
-    opacity: 1;
-}
-
-/* 4. 关键布局修复：统一主容器边距 */
-main { 
-    flex: 1; 
-    padding-top: 5rem; 
+/* ===== 主页特有布局 ===== */
+main {
+    flex: 1;
+    padding-top: 5rem;
     width: 100%;
 }
 
-/* 5. 主页特有内容布局 */
 .intro-section {
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center; padding: 4rem 2rem 2rem;
-}
-.intro-title { 
-    font-size: 5rem; font-weight: 500; letter-spacing: -1.5px; 
-    margin-bottom: 0.5rem; color: #F5F5F5; font-family: 'Times New Roman', Times, serif;
-}
-.intro-subtitle { 
-    font-size: 1rem; letter-spacing: 2px; color: #B3B3B3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem 2rem;
 }
 
-/* 6. 卡片通用样式 */
-.articles-section { max-width: 760px; margin: 0 auto; padding: 0 1.5rem 5rem; }
-.articles-title { font-size: 1.2rem; margin-bottom: 2rem; font-weight: 700; color: #F5F5F5; text-transform: uppercase; letter-spacing: 1px; }
+.intro-title {
+    font-size: 5rem;
+    font-weight: 500;
+    letter-spacing: -1.5px;
+    margin-bottom: 0.5rem;
+    color: #F5F5F5;
+    font-family: 'Times New Roman', Times, serif;
+}
 
-.article-card, .article-item {
-    display: block; 
-    text-decoration: none; 
-    color: inherit;
-    background: rgba(40, 40, 40, 0.4);
+.intro-subtitle {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: #B3B3B3;
+}
+
+/* 背景挡板 - 深色半透明，包裹卡片网格和班级介绍区块 */
+.background-panel {
+    background-color: rgba(30, 30, 30, 0.8);
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto 2rem auto;
+    padding: 2rem;
+    border-radius: 24px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 1.8rem;
-    margin-bottom: 1.5rem; 
-    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.article-card:hover, .article-item:hover { 
-    background: rgba(50, 50, 50, 0.7);
-    transform: translateY(-2px); 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+/* 备案信息 */
+.filing-text {
+    margin-top: auto;
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
 }
 
-.article-meta { font-size: 0.8rem; opacity: 0.6; margin-bottom: 0.6rem; font-family: monospace; }
-.article-item-title, .article-title { font-size: 1.4rem; margin-bottom: 0.6rem; font-weight: 700; color: #F5F5F5; }
-.excerpt { font-size: 0.95rem; opacity: 0.8; line-height: 1.7; color: #B3B3B3; }
-
-.filing-text { margin-top: auto; text-align: center; width: 100%; padding: 20px 0;}
-
-/* 手机端适配 */
+/* 手机适配基础 */
 @media(max-width:480px){
     .intro-title { font-size: 3rem; }
     main { padding-top: 4rem; }
+    .background-panel { padding: 1rem; width: 95%; }
+}
+
+/* ===== 上方两张卡片固定为两列，恢复原本卡片大小 ===== */
+.cards-grid.two-cards {
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    margin-bottom: 2.5rem;  /* 与下方班级介绍区块的间距 */
+}
+
+/* ===== 班级介绍区块（左右布局，非卡片） ===== */
+.class-intro-block {
+    display: flex;
+    gap: 2rem;
+    background: rgba(20, 20, 20, 0.6);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(4px);
+    margin-top: 0.5rem;
+}
+
+/* 左侧文字区域 */
+.intro-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.intro-text h3 {
+    font-size: 1.8rem;
+    color: #F5F5F5;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.intro-text p {
+    font-size: 1rem;
+    color: #CCCCCC;
+    line-height: 1.8;
+}
+
+/* 右侧图片区域 - 默认 16:9（用于班级介绍） */
+.intro-image {
+    flex: 0 0 40%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.intro-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.intro-image img:hover {
+    transform: scale(1.03);
+}
+
+/* ===== 班主任介绍块特殊样式 ===== */
+.teacher-block .intro-image {
+    aspect-ratio: 9 / 16;   /* 改为 9:16 竖向图片 */
+    flex: 0 0 30%;          /* 适当缩小图片区域宽度，避免过高 */
+}
+
+/* ===== 并排容器：让两个介绍块在同一行 ===== */
+.intro-row {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+}
+
+/* 班主任介绍块占 1 份，班级介绍块占 2 份 */
+.intro-row .teacher-block {
+    flex: 1;                /* 1/3 宽度 */
+}
+
+.intro-row .class-intro-block:not(.teacher-block) {
+    flex: 2;                /* 2/3 宽度 */
+}
+
+/* 手机适配：堆叠显示 */
+@media (max-width: 700px) {
+    .cards-grid.two-cards {
+        grid-template-columns: 1fr;  /* 卡片变为单列 */
+    }
+
+    .intro-row {
+        flex-direction: column;
+        gap: 1rem;           /* 手机上的间隙稍小，更紧凑 */
+    }
+
+    .intro-row .teacher-block,
+    .intro-row .class-intro-block:not(.teacher-block) {
+        flex: none;          /* 取消 flex 比例，宽度由内容决定 */
+        width: 100%;
+    }
+
+    .class-intro-block {
+        flex-direction: column;
+    }
+
+    .intro-image {
+        flex: 0 0 auto;
+        width: 100%;
+        aspect-ratio: 16 / 9;  /* 手机下统一图片比例？这里保持原有，但班主任的 9/16 可能被覆盖，如需保留需特殊处理 */
+    }
+
+    /* 手机下班主任图片仍保持 9:16，但宽度自适应 */
+    .teacher-block .intro-image {
+        aspect-ratio: 9 / 16;
+    }
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>柳铁一中（初中部）2418班</title>
     <link rel="stylesheet" href="/style.css">
-    <div w3-include-html="/wallpaper.html"></div>
+
     <style>
         /* 全局样式重置 */
         * {
@@ -137,46 +137,6 @@
             line-height: 1.5;
         }
 
-        /* header 样式（导航栏） */
-        .site-header {
-          position: fixed;
-          top: 0; left: 0; right: 0;
-          z-index: 100;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 8px 14px;
-          background: rgb(255,255,255);
-          backdrop-filter: blur(12px) saturate(130%);
-          border-bottom: 1px solid rgba(255,255,255,0.03);
-          height: 48px;
-          box-sizing: border-box;
-        }
-
-        .site-brand {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          max-width: 45%;
-        }
-
-        .site-title {
-          color: rgb(99, 99, 99);
-          font-weight: 700;
-          font-size: 1.2rem;
-          line-height: 1.2;
-          align-items: center;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .site-img {
-          height: 32px;
-          width: 32px;
-          flex-shrink: 0;
-        }
-
         .nav-scroll {
           display: flex;
           gap: 10px;
@@ -232,65 +192,54 @@
     </style>
 </head>
 <body>
-    <!-- 页面头部（导航栏） -->
-    <header class="site-header">
-      <div class="site-brand">
-        <img class="site-img" src="/img/班徽.png">
-        <span class="site-title">柳州铁一中学（初中部）- 2418班</span>
-      </div>
-      
-      <nav class="header-buttons nav-scroll" aria-label="主导航" tabindex="0">
-        <a href="/index.html" class="header-link"><span class="header-btn">主页</span></a>
-        <!-- 激活当前页：班级荣誉 -->
-        <a href="/honor.html" class="header-link"><span class="header-btn" style="background:rgb(99,99,99); color: white;">班级荣誉</span></a>
-        <a href="/ty80y.html" class="header-link"><span class="header-btn">铁一80周年校庆专页</span></a>
-      </nav>
-    </header>
-
-    <!-- 核心：新增内容容器，用于填充剩余空间 -->
-    <div class="page-content">
-        <!-- 主要内容容器 -->
-        <div class="container">
-            <!-- 荣誉分类标签 -->
-            <div class="category-tabs">
-                <button class="tab-btn active">全部荣誉</button>
-            </div>
-
-            <!-- 荣誉卡片展示区 -->
-            <div class="honor-grid">
-                <!-- 荣誉卡片1 -->
-                <div class="honor-card">
-                    <div class="honor-badge">校级一等奖</div>
-                    <div class="card-img">
-                        <img src="https://picsum.photos/seed/grade1/800/500" alt="运动会团体总分第一">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">2025年春季校运动会初中二年级组团体总分第一名</h3>
-                        <div class="card-meta">
-                            <span>2025年4月28日</span>
-                            <span>体育类集体荣誉</span>
-                        </div>
-                        <p class="card-desc">在2025年春季校运会上，我班同学奋勇拼搏，在短跑、跳远、跳高、接力赛等多个项目中取得优异成绩，最终以总分286分荣获全校初中二年级组团体第一名。</p>
-                    </div>
+    <div w3-include-html="/wallpaper.html"></div>
+    <div w3-include-html="/header.html"></div>
+    <main>
+        <!-- 核心：新增内容容器，用于填充剩余空间 -->
+        <div class="page-content">
+            <!-- 主要内容容器 -->
+            <div class="container">
+                <!-- 荣誉分类标签 -->
+                <div class="category-tabs">
+                    <button class="tab-btn active">全部荣誉</button>
                 </div>
-                <!-- 可继续添加更多卡片 -->
-                <div class="honor-card">
-                    <div class="honor-badge">市级二等奖</div>
-                    <div class="card-img">
-                        <img src="https://picsum.photos/seed/grade2/800/500" alt="科技创新大赛">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">2025年柳州市青少年科技创新大赛团体二等奖</h3>
-                        <div class="card-meta">
-                            <span>2025年3月15日</span>
-                            <span>科技类集体荣誉</span>
+
+                <!-- 荣誉卡片展示区 -->
+                <div class="honor-grid">
+                    <!-- 荣誉卡片1 -->
+                    <div class="honor-card">
+                        <div class="honor-badge">校级一等奖</div>
+                        <div class="card-img">
+                            <img src="https://picsum.photos/seed/grade1/800/500" alt="运动会团体总分第一">
                         </div>
-                        <p class="card-desc">我班团队提交的“AI校园垃圾分类助手”项目，在柳州市青少年科技创新大赛中表现优异，荣获初中组团体二等奖。</p>
+                        <div class="card-content">
+                            <h3 class="card-title">2025年春季校运动会初中二年级组团体总分第一名</h3>
+                            <div class="card-meta">
+                                <span>2025年4月28日</span>
+                                <span>体育类集体荣誉</span>
+                            </div>
+                            <p class="card-desc">在2025年春季校运会上，我班同学奋勇拼搏，在短跑、跳远、跳高、接力赛等多个项目中取得优异成绩，最终以总分286分荣获全校初中二年级组团体第一名。</p>
+                        </div>
+                    </div>
+                    <!-- 可继续添加更多卡片 -->
+                    <div class="honor-card">
+                        <div class="honor-badge">市级二等奖</div>
+                        <div class="card-img">
+                            <img src="https://picsum.photos/seed/grade2/800/500" alt="科技创新大赛">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">2025年柳州市青少年科技创新大赛团体二等奖</h3>
+                            <div class="card-meta">
+                                <span>2025年3月15日</span>
+                                <span>科技类集体荣誉</span>
+                            </div>
+                            <p class="card-desc">我班团队提交的“AI校园垃圾分类助手”项目，在柳州市青少年科技创新大赛中表现优异，荣获初中组团体二等奖。</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- 页脚 - 现在会始终在底部 -->
     <footer class="footer">
