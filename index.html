@@ -6,6 +6,10 @@
     <title>柳铁一中（初中部）2418班</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/img-card.css">
+    <!-- 引入 Inter 字体（可选，提高字体现代感） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
 </head>
 <body>
     <div w3-include-html="/header.html"></div>
@@ -17,40 +21,38 @@
             <p class="intro-subtitle">柳州铁一中学（初中部）</p>
         </section>
 
-        <!-- 背景挡板 -->
+        <!-- 背景挡板（透明度提高） -->
         <div class="background-panel">
-            <!-- 并排容器：班主任介绍和班级介绍在同一行 -->
-            <div class="intro-row">
-                <!-- 班主任介绍块（左侧，添加 teacher-block 类） -->
-                <div class="class-intro-block teacher-block">
-                    <div class="intro-text">
-                        <h3>班主任介绍</h3>
-                        <p>
-                            班主任：刘茜  |  英语教师<br>从教50年
-                        </p>
-                    </div>
-                    <div class="intro-image">
-                        <img src="/img/user.png">
-                    </div>
-                </div>
-
-                <!-- 班级介绍块（右侧） -->
+            <!-- 上下排列：班级介绍在上，班主任介绍在下 -->
+            <div class="intro-stack">
+                <!-- 班级介绍块（上面，图片16:9强制） -->
                 <div class="class-intro-block">
                     <div class="intro-text">
                         <h3>班级介绍</h3>
-                        <p>
+                        <div class="intro-text-content">
                             <h2>基本信息</h2>
-                            我班共56位学生，其中有26为女生，30位男生。
+                            <p>我班共56位学生，其中有26为女生，30位男生。</p>
                             <h2>班级目标</h2>
-                            学会做人，学会感恩，学会做人。
+                            <p>学会做人，学会感恩，学会做人。</p>
                             <h2>班级口号</h2>
-                            十八协力，永不言弃，逐梦远航，共筑辉煌。
+                            <p>十八协力，永不言弃，逐梦远航，共筑辉煌。</p>
                             <h2>班训</h2>
-                            认真做好当下的事，友善对待身边的人。
-                        </p>
+                            <p>认真做好当下的事，友善对待身边的人。</p>
+                        </div>
                     </div>
                     <div class="intro-image">
                         <img src="/img/测试合照.png" alt="班级合影" onerror="this.src='/img/班徽.jpg';">
+                    </div>
+                </div>
+
+                <!-- 班主任介绍块（下面，图片左置，9:16竖图） -->
+                <div class="class-intro-block teacher-block">
+                    <div class="intro-image">
+                        <img src="/img/user.png" alt="班主任照片">
+                    </div>
+                    <div class="intro-text">
+                        <h3>班主任介绍</h3>
+                        <p>班主任：刘茜  |  英语教师<br>从教50年</p>
                     </div>
                 </div>
             </div>
