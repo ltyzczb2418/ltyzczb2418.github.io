@@ -1,238 +1,640 @@
-/* ===== 全局基础 ===== */
+/* 全局样式（圆角减小版） */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    color: #E0E0E0;
-    background: #121212;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    line-height: 1.6;
-    letter-spacing: 0.02em;
+    font-family: 'Segoe UI', 'Segoe UI Variable', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+    background: #f5f5f5;
+    background-image: radial-gradient(circle at 10% 20%, rgba(15, 108, 189, 0.02) 0%, rgba(0,0,0,0) 80%);
+    color: #1f1f1f;
+    line-height: 1.5;
+    padding-top: 70px;
+    padding-bottom: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    overflow-x: hidden;
 }
 
-a {
-    color: rgb(173, 216, 230);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-a:hover {
-    color: #fff;
-    text-decoration: underline;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* ===== 主页特有布局 ===== */
-main {
-    flex: 1;
-    padding-top: 5rem;
+/* 导航栏 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(15, 108, 189, 0.1);
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
-/* 大标题区域 */
-.intro-section {
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.8rem 1.5rem;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    padding: 4rem 2rem 2rem;
 }
 
-.intro-title {
-    font-size: 5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-    color: #F5F5F5;
-    font-family: 'Inter', 'Times New Roman', Times, serif;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    line-height: 1.2;
-}
-
-.intro-subtitle {
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     font-size: 1.2rem;
-    letter-spacing: 0.3em;
-    color: #B3B3B3;
-    font-weight: 400;
-    text-transform: uppercase;
+    font-weight: 600;
+    color: #0F6CBD;
 }
 
-/* 背景挡板 - 宽度改为距离屏幕边缘50px（左右各50px），手机保持95% */
-.background-panel {
-    background-color: rgba(30, 30, 30, 0.6);
-    width: calc(100% - 100px);      /* 左右各留50px空白 */
-    /* max-width: 1400px; */
-    margin: 0 auto 2rem auto;       /* 水平居中，底部间距2rem */
-    padding: 2rem;
-    border-radius: 24px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+.nav-logo i {
+    font-size: 1.4rem;
 }
 
-/* 备案信息 */
-.filing-text {
-    margin-top: auto;
-    text-align: center;
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #2c2c2e;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding: 0.4rem 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.nav-links a:hover {
+    color: #0F6CBD;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #0F6CBD;
+    transition: width 0.2s;
+}
+
+.nav-links a:hover::after {
     width: 100%;
-    padding: 20px 0;
-    font-size: 0.9rem;
-    color: #888;
 }
 
-/* 手机适配基础 */
-@media(max-width:480px){
-    .intro-title { font-size: 3rem; }
-    main { padding-top: 4rem; }
-    .background-panel { 
-        padding: 1rem; 
-        width: 95%;                /* 手机恢复原样（95%宽度） */
+/* 页面切换动画容器 */
+#page-content {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* 滑动动画 */
+.page-slide-enter {
+    position: relative;
+    animation: slideInFromRight 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+
+.page-slide-exit {
+    position: relative;
+    animation: slideOutToLeft 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+
+.page-slide-enter-left {
+    animation: slideInFromLeft 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+
+.page-slide-exit-right {
+    animation: slideOutToRight 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
     }
-    .intro-subtitle { letter-spacing: 0.2em; font-size: 1rem; }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
-/* ===== 上方两张卡片固定为两列 ===== */
-.cards-grid.two-cards {
-    grid-template-columns: repeat(2, minmax(280px, 1fr));
+@keyframes slideOutToLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* 卡片样式（与之前相同，仅保留圆角减小） */
+.class-intro-card, .homeroom-card, .teacher-item, .honor-main-card, .stat-box {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.class-intro-card:hover, .homeroom-card:hover, .teacher-item:hover, .honor-main-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(15, 108, 189, 0.2);
+}
+
+/* 头部区域 */
+.hero-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.brand-block {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.class-emblem {
+    width: 84px;
+    height: 84px;
+    background: linear-gradient(135deg, #0F6CBD, #2B88D8);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(15, 108, 189, 0.2);
+    transition: transform 0.2s;
+}
+
+.class-emblem:hover {
+    transform: scale(1.02);
+}
+
+.class-emblem i {
+    font-size: 2.8rem;
+    color: white;
+}
+
+.class-name h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    color: #1f1f1f;
+}
+
+.class-name p {
+    font-size: 0.9rem;
+    color: #5b5b5b;
+    font-weight: 400;
+}
+
+/* 班级介绍卡片 */
+.class-intro-card {
+    margin-bottom: 2.5rem;
+    padding: 1.8rem;
+}
+
+.intro-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(15, 108, 189, 0.2);
+    padding-bottom: 0.8rem;
+}
+
+.intro-header i {
+    font-size: 1.6rem;
+    color: #0F6CBD;
+}
+
+.intro-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f1f1f;
+}
+
+.intro-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.intro-stat, .intro-slogan, .intro-goal {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: rgba(15, 108, 189, 0.05);
+    padding: 1rem;
+    border-radius: 16px;
+}
+
+.stat-icon, .slogan-icon, .goal-icon {
+    width: 48px;
+    height: 48px;
+    background: #EFF5FC;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-icon i, .slogan-icon i, .goal-icon i {
+    font-size: 1.6rem;
+    color: #0F6CBD;
+}
+
+.stat-info h3, .slogan-text h3, .goal-text h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #5b5b5b;
+    margin-bottom: 0.3rem;
+}
+
+.stat-info .num {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #0F6CBD;
+    line-height: 1;
+}
+
+.gender-balance {
+    font-size: 0.7rem;
+    color: #7a7a7a;
+}
+
+.slogan-text p {
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: italic;
+    color: #2b2b2b;
+    margin-bottom: 0.3rem;
+}
+
+.slogan-sub {
+    font-size: 0.8rem;
+    color: #7a7a7a;
+}
+
+.goal-text ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.goal-text li {
+    font-size: 0.85rem;
+    color: #3a3a3a;
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+}
+
+/* 教师板块 */
+.teacher-section {
     margin-bottom: 2.5rem;
 }
 
-/* ===== 上下堆叠容器 ===== */
-.intro-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-}
-
-/* ===== 班级介绍区块（左右布局，无卡片样式） ===== */
-.class-intro-block {
-    display: flex;
-    gap: 2rem;
-    background: transparent;
-    border-radius: 0;
-    padding: 0;
-    border: none;
-    backdrop-filter: none;
-    margin-top: 0;
-}
-
-/* 文字区域统一样式 */
-.intro-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.intro-text h3 {
-    font-size: 2.2rem;
+.section-title {
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #F5F5F5;
-    margin-bottom: 1rem;
-    letter-spacing: -0.01em;
-    border-left: 4px solid #B3B3B3;
-    padding-left: 1rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #1f1f1f;
 }
 
-.intro-text p {
-    font-size: 1rem;
-    color: #DDD;
-    line-height: 1.8;
-    margin-bottom: 0.8rem;
+.section-title i {
+    color: #0F6CBD;
+    font-size: 1.4rem;
 }
 
-/* 内嵌小标题（基本信息、班级目标等） */
-.intro-text h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #F0F0F0;
-    margin: 1.2rem 0 0.5rem 0;
-    letter-spacing: 0.01em;
-    border-bottom: 1px dashed #555;
-    padding-bottom: 0.3rem;
+.homeroom-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 1.8rem;
+    align-items: center;
 }
 
-/* 图片区域 - 班级合照强制 16:9，图片完整显示（contain） */
-.intro-image {
-    flex: 0 0 40%;               /* 宽度为父容器的40% */
-    aspect-ratio: 16 / 9;        /* 强制16:9比例 */
-    min-height: 0;               /* 解决flex下aspect-ratio失效问题 */
-    max-width: 100%;             /* 防止溢出 */
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    background-color: rgba(0, 0, 0, 0.4); /* 深色背景填充留白区域 */
+.teacher-avatar {
+    background: linear-gradient(145deg, #0F6CBD, #2B88D8);
+    width: 108px;
+    height: 108px;
+    border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(15, 108, 189, 0.2);
 }
 
-.intro-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;         /* 完整显示图片，不变形，可能留白 */
-    transition: transform 0.3s ease;
+.teacher-avatar i {
+    font-size: 3.2rem;
+    color: white;
 }
 
-.intro-image img:hover {
-    transform: scale(1.03);       /* 轻微放大效果 */
+.teacher-details {
+    flex: 1;
 }
 
-/* ===== 班主任介绍块特殊样式 ===== */
-.teacher-block .intro-image {
-    aspect-ratio: 9 / 16;        /* 班主任照片 9:16 竖图 */
-    flex: 0 0 20%;               /* 照片宽度缩小 */
-    background-color: transparent; /* 班主任图背景透明，保持原样 */
+.teacher-details h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f1f1f;
 }
 
-.teacher-block .intro-image img {
-    object-fit: cover;           /* 班主任照片仍使用cover，适合人物 */
+.teacher-subject {
+    background: #EFF5FC;
+    display: inline-block;
+    padding: 0.2rem 1rem;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0.6rem 0 0.8rem 0;
+    color: #0F6CBD;
 }
 
-.teacher-block .intro-text h3 {
-    border-left-color: #9f9f9f;
+.teacher-bio {
+    color: #3a3a3a;
+    line-height: 1.5;
+    font-size: 0.95rem;
 }
 
-/* 手机适配：堆叠显示 */
-@media (max-width: 700px) {
-    .cards-grid.two-cards {
+.teacher-contact {
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    color: #7a7a7a;
+}
+
+.teachers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.teacher-item {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.teacher-img {
+    width: 84px;
+    height: 84px;
+    background: #EFF5FC;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem auto;
+    font-size: 2rem;
+    color: #0F6CBD;
+    transition: all 0.2s;
+}
+
+.teacher-item:hover .teacher-img {
+    background: #d9eaf9;
+    transform: scale(1.02);
+}
+
+.teacher-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f1f1f;
+}
+
+.teacher-course {
+    background: #EFF5FC;
+    display: inline-block;
+    padding: 0.2rem 1rem;
+    border-radius: 40px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #0F6CBD;
+    margin: 0.6rem 0 0.6rem;
+}
+
+.teacher-desc {
+    font-size: 0.85rem;
+    color: #6c6c6c;
+    line-height: 1.4;
+}
+
+.team-tagline {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 1rem;
+    color: #7a7a7a;
+}
+
+/* 荣誉页面专用 */
+.honor-main-card {
+    margin-bottom: 2rem;
+    padding: 1.8rem;
+}
+
+.honor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.honor-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(15, 108, 189, 0.05);
+    border-radius: 16px;
+    transition: transform 0.2s;
+}
+
+.honor-item:hover {
+    transform: translateX(4px);
+    background: rgba(15, 108, 189, 0.08);
+}
+
+.honor-icon {
+    width: 56px;
+    height: 56px;
+    background: #EFF5FC;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.honor-icon i {
+    font-size: 1.8rem;
+    color: #0F6CBD;
+}
+
+.honor-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin-bottom: 0.2rem;
+}
+
+.honor-content p {
+    font-size: 0.85rem;
+    color: #5b5b5b;
+    margin-bottom: 0.3rem;
+}
+
+.honor-date {
+    font-size: 0.7rem;
+    color: #8e8e93;
+}
+
+.honor-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0 1rem;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 1rem 1.5rem;
+    min-width: 160px;
+}
+
+.stat-box i {
+    font-size: 2rem;
+    color: #0F6CBD;
+    margin-bottom: 0.5rem;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0F6CBD;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #5b5b5b;
+    margin-top: 0.3rem;
+}
+
+/* 公共底部 */
+.footer-note {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #7a7a7a;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 2rem;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    body {
+        padding: 60px 1rem 1rem 1rem;
+    }
+    .nav-container {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.6rem 1rem;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+    .hero-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .intro-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .intro-stat, .intro-slogan, .intro-goal {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .stat-icon, .slogan-icon, .goal-icon {
+        margin-bottom: 0.5rem;
+    }
+    .homeroom-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .teacher-details {
+        text-align: center;
+    }
+    .teacher-contact {
+        justify-content: center;
+    }
+    .class-name h1 {
+        font-size: 1.6rem;
+    }
+    .class-emblem {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+    }
+    .class-emblem i {
+        font-size: 2.2rem;
+    }
+    .honor-grid {
         grid-template-columns: 1fr;
     }
-
-    .class-intro-block {
-        flex-direction: column;
+    .honor-stats {
+        gap: 1rem;
     }
-
-    .intro-image {
-        flex: 0 0 auto;
-        width: 100%;
-        aspect-ratio: 16 / 9;    /* 班级图片手机仍保持16:9 */
-        min-height: 0;
+    .stat-box {
+        min-width: 120px;
+        padding: 0.8rem;
     }
-
-    .teacher-block .intro-image {
-        aspect-ratio: 9 / 16;     /* 班主任图片手机仍为竖图 */
-    }
-
-    .intro-text h3 {
-        font-size: 1.8rem;
-        border-left-width: 3px;
-    }
-
-    .intro-text h2 {
-        font-size: 1.2rem;
-    }
-}
-
-/* ===== 新增：班级合照使用cover填充16:9区域，不变形（不拉伸） ===== */
-.class-intro-block:not(.teacher-block) .intro-image img {
-    object-fit: cover;
 }

@@ -2,321 +2,113 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>柳铁一中（初中部）2418班</title>
-    <link rel="stylesheet" href="/style.css">
-
-    <style>
-        /* 全局样式重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Microsoft YaHei", sans-serif;
-            word-wrap: break-word;
-            word-break: break-all;
-        }
-
-        /* 核心：设置页面弹性布局，让页脚固定底部 */
-        html, body {
-            height: 100%; /* 必须设置高度100% */
-            min-height: 100vh; /* 兼容移动端 */
-        }
-        body {
-            background-image: url('https://picui.ogmua.cn/s1/2026/03/12/69b24ea329e74.webp');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.5);
-            background-blend-mode: overlay;
-            color: #333;
-            line-height: 1.6;
-            padding-top: 60px; /* 避开固定导航栏 */
-            
-            /* 关键：弹性布局 */
-            display: flex;
-            flex-direction: column; /* 垂直排列 */
-        }
-
-        /* 核心：内容区自动填充剩余空间 */
-        .page-content {
-            flex: 1; /* 占满除了头部和页脚的所有空间 */
-        }
-
-        /* 容器样式 */
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-
-        /* 分类标签样式 */
-        .category-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.8);
-            color: #333;
-            cursor: pointer;
-            transition: all 0.2s ease; /* 标签切换动效 */
-            font-size: 0.9rem;
-        }
-        .tab-btn.active {
-            background: rgb(99,99,99);
-            color: white;
-            transform: translateY(-2px); /* 激活标签上移动效 */
-        }
-        .tab-btn:hover {
-            background: rgba(99,99,99,0.8);
-            color: white;
-        }
-
-        /* 荣誉卡片网格 */
-        .honor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        /* 荣誉卡片样式 + 动态hover效果 */
-        .honor-card {
-            background: rgba(255,255,255,0.9);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease; /* 卡片整体动效 */
-            cursor: pointer;
-        }
-        .honor-card:hover {
-            transform: translateY(-8px); /* 鼠标悬浮上移 */
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* 悬浮加深阴影 */
-        }
-        .honor-badge {
-            background: rgb(99,99,99);
-            color: white;
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        .card-img img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.5s ease; /* 图片缩放动效 */
-        }
-        .honor-card:hover .card-img img {
-            transform: scale(1.05); /* 悬浮时图片轻微放大 */
-        }
-        .card-content {
-            padding: 15px;
-        }
-        .card-title {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: #333;
-        }
-        .card-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 8px;
-        }
-        .card-desc {
-            font-size: 0.9rem;
-            color: #555;
-            line-height: 1.5;
-        }
-
-        .nav-scroll {
-          display: flex;
-          gap: 10px;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          scroll-behavior: smooth;
-          padding: 4px 2px;
-          align-items: center;
-          max-width: 65%;
-          height: 100%;
-          scroll-snap-type: x mandatory;
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .nav-scroll::-webkit-scrollbar { display: none; }
-
-        .header-link { text-decoration: none; }
-        .header-btn {
-          display: inline-block;
-          white-space: nowrap;
-          color: #333;
-          padding: 6px 10px;
-          border-radius: 8px;
-          transition: background .12s, color .12s, transform .08s;
-          font-size: 0.88rem;
-          line-height: 1;
-          scroll-snap-align: start;
-        }
-
-        .header-btn:hover,
-        .header-btn:focus {
-          background: rgba(0,0,0,0.06);
-          color: #000;
-          transform: translateY(-1px); /* 按钮悬浮上移 */
-          outline: none;
-        }
-
-        .nav-scroll { cursor: grab; }
-        .nav-scroll:active { cursor: grabbing; }
-
-        /* 页脚样式 - 固定在底部 */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #fffffffe;
-            font-size: 0.8rem;
-            /* 可选：加个上边框区分内容 */
-            border-top: 1px solid rgba(0,0,0,0.1);
-            /* 确保页脚不被内容遮挡 */
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.031);
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>星火班 | 燎原中队 - 荣誉墙</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div w3-include-html="/wallpaper.html"></div>
-    <div w3-include-html="/header.html"></div>
-    <main>
-        <!-- 核心：新增内容容器，用于填充剩余空间 -->
-        <div class="page-content">
-            <!-- 主要内容容器 -->
-            <div class="container">
-                <!-- 荣誉分类标签 -->
-                <div class="category-tabs">
-                    <button class="tab-btn active">全部荣誉</button>
-                </div>
+    <div id="header-container"></div>
 
-                <!-- 荣誉卡片展示区 -->
+    <div id="page-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="hero-section" style="margin-bottom: 1rem;">
+                <div class="brand-block">
+                    <div class="class-emblem">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="class-name">
+                        <h1>星火班 · 燎原中队</h1>
+                        <p><i class="fas fa-map-pin"></i> 荣誉时刻 · 见证成长</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 荣誉墙主卡片 -->
+            <div class="honor-main-card">
+                <div class="intro-header">
+                    <i class="fas fa-trophy"></i>
+                    <h2>班级荣誉墙</h2>
+                </div>
                 <div class="honor-grid">
-                    <!-- 荣誉卡片1 -->
-                    <div class="honor-card">
-                        <div class="honor-badge">校级一等奖</div>
-                        <div class="card-img">
-                            <img src="https://picsum.photos/seed/grade1/800/500" alt="运动会团体总分第一">
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title">2025年春季校运动会初中二年级组团体总分第一名</h3>
-                            <div class="card-meta">
-                                <span>2025年4月28日</span>
-                                <span>体育类集体荣誉</span>
-                            </div>
-                            <p class="card-desc">在2025年春季校运会上，我班同学奋勇拼搏，在短跑、跳远、跳高、接力赛等多个项目中取得优异成绩，最终以总分286分荣获全校初中二年级组团体第一名。</p>
+                    <div class="honor-item">
+                        <div class="honor-icon"><i class="fas fa-futbol"></i></div>
+                        <div class="honor-content">
+                            <h3>年级篮球赛亚军</h3>
+                            <p>2025年秋季学期 · 团结拼搏，勇夺亚军</p>
+                            <span class="honor-date">2025年11月</span>
                         </div>
                     </div>
-                    <!-- 可继续添加更多卡片 -->
-                    <div class="honor-card">
-                        <div class="honor-badge">市级二等奖</div>
-                        <div class="card-img">
-                            <img src="https://picsum.photos/seed/grade2/800/500" alt="科技创新大赛">
+                    <div class="honor-item">
+                        <div class="honor-icon"><i class="fas fa-paintbrush"></i></div>
+                        <div class="honor-content">
+                            <h3>最美教室一等奖</h3>
+                            <p>2025年度校园文化建设评比 · 温馨育人环境</p>
+                            <span class="honor-date">2025年10月</span>
                         </div>
-                        <div class="card-content">
-                            <h3 class="card-title">2025年柳州市青少年科技创新大赛团体二等奖</h3>
-                            <div class="card-meta">
-                                <span>2025年3月15日</span>
-                                <span>科技类集体荣誉</span>
-                            </div>
-                            <p class="card-desc">我班团队提交的“AI校园垃圾分类助手”项目，在柳州市青少年科技创新大赛中表现优异，荣获初中组团体二等奖。</p>
+                    </div>
+                    <div class="honor-item">
+                        <div class="honor-icon"><i class="fas fa-hand-sparkles"></i></div>
+                        <div class="honor-content">
+                            <h3>学雷锋优秀中队</h3>
+                            <p>2026年学雷锋月活动 · 志愿服务先进集体</p>
+                            <span class="honor-date">2026年3月</span>
+                        </div>
+                    </div>
+                    <div class="honor-item">
+                        <div class="honor-icon"><i class="fas fa-microphone-alt"></i></div>
+                        <div class="honor-content">
+                            <h3>校园艺术节合唱比赛金奖</h3>
+                            <p>《星火之歌》原创合唱 · 展现班级凝聚力</p>
+                            <span class="honor-date">2025年12月</span>
+                        </div>
+                    </div>
+                    <div class="honor-item">
+                        <div class="honor-icon"><i class="fas fa-leaf"></i></div>
+                        <div class="honor-content">
+                            <h3>绿色环保示范班级</h3>
+                            <p>垃圾分类与环保创意大赛一等奖</p>
+                            <span class="honor-date">2026年1月</span>
+                        </div>
+                    </div>
+                    <div class="honor-item">
+                        <div class="honor-icon"><i class="fas fa-chalkboard"></i></div>
+                        <div class="honor-content">
+                            <h3>教学质量优胜班级</h3>
+                            <p>2025学年第二学期期末统考综合排名年级前五</p>
+                            <span class="honor-date">2026年2月</span>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- 荣誉统计卡片 -->
+            <div class="honor-stats">
+                <div class="stat-box">
+                    <i class="fas fa-medal"></i>
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">校级及以上荣誉</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">学生参与活动率</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div class="stat-number">2026</div>
+                    <div class="stat-label">再创佳绩 · 未完待续</div>
+                </div>
+            </div>
+
+            <div class="footer-note">
+                <p>⭐ 每一份荣誉都是星火班共同的骄傲 ⭐ <br>© 2026 星火燎原中队 | 继往开来 再创辉煌</p>
+            </div>
         </div>
-    </main>
+    </div>
 
-    <!-- 页脚 - 现在会始终在底部 -->
-    <footer class="footer">
-        <p>豆包人工生成</p>
-    </footer>
-
-    <!-- 所有动态效果脚本 -->
-    <script>
-        // 1. 导航栏拖拽滚动 + 键盘控制
-        (function(){
-          const scroller = document.querySelector('.nav-scroll');
-          if (!scroller) return;
-
-          // 鼠标拖拽滑动
-          let isDown = false;
-          let startX, scrollLeft;
-
-          // 鼠标按下
-          scroller.addEventListener('mousedown', (e) => {
-            isDown = true;
-            scroller.classList.add('dragging');
-            startX = e.pageX - scroller.offsetLeft;
-            scrollLeft = scroller.scrollLeft;
-            e.preventDefault(); // 防止默认选中文字
-          });
-
-          // 鼠标松开（全局监听，防止鼠标移出导航栏后无法松开）
-          document.addEventListener('mouseup', () => {
-            isDown = false;
-            scroller.classList.remove('dragging');
-          });
-
-          // 鼠标移动
-          document.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            const x = e.pageX - scroller.offsetLeft;
-            const walk = (x - startX) * 1.1; // 1.1是滑动速度系数
-            scroller.scrollLeft = scrollLeft - walk;
-          });
-
-          // 键盘左右键滚动
-          scroller.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-              scroller.scrollBy({ left: 100, behavior: 'smooth' });
-              e.preventDefault();
-            }
-            if (e.key === 'ArrowLeft') {
-              scroller.scrollBy({ left: -100, behavior: 'smooth' });
-              e.preventDefault();
-            }
-          });
-        })();
-
-        // 2. 分类标签切换动效
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // 移除所有标签的active类
-                tabBtns.forEach(b => b.classList.remove('active'));
-                // 给当前点击的标签加active类（带动效）
-                btn.classList.add('active');
-                
-                // 如果需要实现标签筛选逻辑，可在这里补充
-                // 比如：根据标签筛选卡片显示/隐藏
-            });
-        });
-
-        // 3. 可选：卡片点击轻微缩放动效（增强交互）
-        const honorCards = document.querySelectorAll('.honor-card');
-        honorCards.forEach(card => {
-            card.addEventListener('click', () => {
-                card.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    card.style.transform = 'translateY(-8px) scale(1)';
-                }, 100);
-            });
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
