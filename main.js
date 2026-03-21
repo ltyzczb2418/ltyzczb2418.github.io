@@ -1,3 +1,5 @@
+import { FluentDialog } from './dialog.js';
+
 // main.js - 加载导航栏、页面切换动画、居中旋转加载指示器（匀速旋转）
 
 (function() {
@@ -15,7 +17,7 @@
                 width: 100%;
                 height: 100%;
                 background: rgba(255, 255, 255, 0.85);
-                backdrop-filter: blur(4px);
+                backdrop-filter: blur(3px);
                 z-index: 10002;
                 display: flex;
                 align-items: center;
@@ -34,7 +36,7 @@
                 width: 48px;
                 height: 48px;
                 position: relative;
-                animation: rotate 3.5s linear infinite;
+                animation: rotate 1.5s linear infinite;
             }
             .winui-spinner-circle {
                 box-sizing: border-box;
@@ -72,10 +74,8 @@
     function createSpinnerOverlay() {
         if (overlay) return;
         injectSpinnerStyles();
-        // 创建遮罩层
         const div = document.createElement('div');
         div.className = 'loading-overlay';
-        // 创建圆环容器
         const spinnerContainer = document.createElement('div');
         spinnerContainer.className = 'winui-spinner';
         const circle = document.createElement('div');
@@ -100,6 +100,98 @@
         }
     }
 
+    // 辅助函数：转义 HTML
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // 初始化活动上传功能
+    function initActivityUpload() {
+        const uploadBtn = document.getElementById('uploadActivityBtn');
+        if (!uploadBtn) return;
+        const newBtn = uploadBtn.cloneNode(true);
+        uploadBtn.parentNode.replaceChild(newBtn, uploadBtn);
+        newBtn.addEventListener('click', () => {
+            FluentDialog.uploadActivity((activity) => {
+                const activityGrid = document.getElementById('activityGrid');
+                if (!activityGrid) return;
+                const { name, description, imageDataUrl } = activity;
+                const newCard = document.createElement('div');
+                newCard.className = 'activity-card';
+                const bgImage = imageDataUrl ? `url('${imageDataUrl}')` : 'url(https://picsum.photos/id/20/300/200)';
+                newCard.innerHTML = `
+                    <div class="activity-img" style="background-image: ${bgImage}"></div>
+                    <div class="activity-info">
+                        <h3>${escapeHtml(name)}</h3>
+                        <p>${escapeHtml(description)}</p>
+                    </div>
+                `;
+                activityGrid.insertBefore(newCard, activityGrid.firstChild);
+            });
+        });
+    }
+
+    // 初始化荣誉卡片点击弹窗
+    function initHonorCards() {
+        const honorItems = document.querySelectorAll('.honor-item');
+        honorItems.forEach(item => {
+            const newItem = item.cloneNode(true);
+            item.parentNode.replaceChild(newItem, item);
+            
+            newItem.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                const title = newItem.getAttribute('data-title') || newItem.querySelector('h3')?.innerText || '荣誉详情';
+                const description = newItem.getAttribute('data-description') || newItem.querySelector('p')?.innerText || '';
+                const date = newItem.getAttribute('data-date') || newItem.querySelector('.honor-date')?.innerText || '';
+                const imageUrl = newItem.getAttribute('data-image');
+                
+                let contentHtml = `
+                    <div class="honor-detail">
+                        <p style="margin-bottom: 12px;"><strong>获奖时间：</strong> ${date}</p>
+                        <p style="margin-bottom: 16px;">${description}</p>
+                `;
+                if (imageUrl) {
+                    contentHtml += `
+                        <div class="honor-award-image" style="text-align: center; margin-top: 12px;">
+                            <img src="${imageUrl}" alt="奖状图片" style="max-width: 100%; max-height: 300px; border-radius: 8px; cursor: pointer; transition: transform 0.2s;" 
+                                 onclick="window.open('${imageUrl}', '_blank')">
+                            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px;">点击图片查看大图</p>
+                        </div>
+                    `;
+                } else {
+                    contentHtml += `<p style="color: #999;">暂无奖状图片</p>`;
+                }
+                contentHtml += `</div>`;
+                
+                FluentDialog.alert(contentHtml, title);
+            });
+        });
+    }
+
+    // 获取当前页面标识（支持多页面）
+    function getCurrentPage() {
+        const path = window.location.pathname;
+        if (path.includes('honor.html')) return 'honor';
+        if (path.includes('ty80y.html')) return 'ty80y';
+        return 'index';
+    }
+
+    // 页面URL映射
+    function getPageUrl(page) {
+        const map = {
+            'index': 'index.html',
+            'honor': 'honor.html',
+            'ty80y': 'ty80y.html'
+        };
+        return map[page] || 'index.html';
+    }
+
     // 加载导航栏
     const headerContainer = document.getElementById('header-container');
     if (headerContainer) {
@@ -109,15 +201,16 @@
                 headerContainer.innerHTML = data;
                 initNavigation();
                 highlightCurrentNav();
+                // 初始加载时，根据当前页面初始化相应功能
+                const currentPage = getCurrentPage();
+                if (currentPage === 'index') {
+                    initActivityUpload();
+                } else if (currentPage === 'honor') {
+                    initHonorCards();
+                }
+                // ty80y 页面无特殊初始化
             })
             .catch(error => console.error('加载导航栏失败:', error));
-    }
-
-    // 获取当前页面标识（从 URL 路径判断，默认为 index）
-    function getCurrentPage() {
-        const path = window.location.pathname;
-        if (path.includes('honor.html')) return 'honor';
-        return 'index';
     }
 
     // 高亮当前导航项
@@ -143,7 +236,6 @@
         if (isTransitioning) return;
         isTransitioning = true;
 
-        // 显示居中旋转加载指示器
         showProgressBar();
 
         const currentContent = document.getElementById('page-content');
@@ -153,8 +245,7 @@
             return;
         }
 
-        // 获取新页面内容
-        let url = targetPage === 'index' ? 'index.html' : 'honor.html';
+        let url = getPageUrl(targetPage);
         fetch(url)
             .then(response => response.text())
             .then(html => {
@@ -168,14 +259,12 @@
                     return;
                 }
 
-                // 应用动画类
                 const exitClass = direction === 'right' ? 'page-slide-exit' : 'page-slide-exit-right';
                 const enterClass = direction === 'right' ? 'page-slide-enter' : 'page-slide-enter-left';
 
                 currentContent.classList.add(exitClass);
 
                 setTimeout(() => {
-                    // 替换内容
                     currentContent.innerHTML = newContent.innerHTML;
                     currentContent.classList.remove(exitClass);
                     currentContent.classList.add(enterClass);
@@ -184,27 +273,30 @@
                         currentContent.classList.remove(enterClass);
                         isTransitioning = false;
 
-                        // 更新浏览器 URL 和历史记录
-                        const newUrl = targetPage === 'index' ? 'index.html' : 'honor.html';
+                        const newUrl = getPageUrl(targetPage);
                         if (window.location.pathname !== `/${newUrl}`) {
                             window.history.pushState({ page: targetPage }, '', newUrl);
                         }
 
-                        // 重新高亮导航
                         highlightCurrentNav();
 
-                        // 如果新页面是 index，处理锚点滚动
-                        if (targetPage === 'index' && window.location.hash) {
-                            const targetId = window.location.hash.substring(1);
-                            const targetElement = document.getElementById(targetId);
-                            if (targetElement) {
-                                setTimeout(() => {
-                                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                }, 50);
+                        // 根据目标页面初始化特定功能
+                        if (targetPage === 'index') {
+                            initActivityUpload();
+                            if (window.location.hash) {
+                                const targetId = window.location.hash.substring(1);
+                                const targetElement = document.getElementById(targetId);
+                                if (targetElement) {
+                                    setTimeout(() => {
+                                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }, 50);
+                                }
                             }
+                        } else if (targetPage === 'honor') {
+                            initHonorCards();
                         }
+                        // ty80y 页面无特殊初始化
 
-                        // 隐藏加载指示器
                         hideProgressBar();
                     }, 400);
                 }, 400);
@@ -227,7 +319,6 @@
 
                 const currentPage = getCurrentPage();
 
-                // 如果目标页面与当前页面相同，则处理锚点滚动
                 if (targetPage === currentPage) {
                     if (targetId) {
                         const targetElement = document.getElementById(targetId);
@@ -239,18 +330,23 @@
                     return;
                 }
 
-                // 页面不同，执行切换动画
-                const direction = (currentPage === 'index' && targetPage === 'honor') ? 'right' : 'left';
+                // 计算方向：从索引页到荣誉页/新页面为右，反之为左（简单处理）
+                const pageOrder = ['index', 'honor', 'ty80y'];
+                const currentIdx = pageOrder.indexOf(currentPage);
+                const targetIdx = pageOrder.indexOf(targetPage);
+                const direction = targetIdx > currentIdx ? 'right' : 'left';
                 switchPage(targetPage, direction);
             });
         });
 
-        // 监听浏览器前进后退
         window.addEventListener('popstate', function(event) {
             const newPage = getCurrentPage();
             const oldPage = event.state?.page || getCurrentPage();
             if (oldPage !== newPage) {
-                const direction = newPage === 'honor' ? 'right' : 'left';
+                const pageOrder = ['index', 'honor', 'ty80y'];
+                const oldIdx = pageOrder.indexOf(oldPage);
+                const newIdx = pageOrder.indexOf(newPage);
+                const direction = newIdx > oldIdx ? 'right' : 'left';
                 switchPage(newPage, direction);
             } else {
                 if (window.location.hash) {

@@ -163,7 +163,7 @@ body {
     }
 }
 
-/* 卡片样式（与之前相同，仅保留圆角减小） */
+/* 卡片样式 */
 .class-intro-card, .homeroom-card, .teacher-item, .honor-main-card, .stat-box {
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(20px);
@@ -244,11 +244,6 @@ body {
     margin-bottom: 1.5rem;
     border-bottom: 2px solid rgba(15, 108, 189, 0.2);
     padding-bottom: 0.8rem;
-}
-
-.intro-header i {
-    font-size: 1.6rem;
-    color: #0F6CBD;
 }
 
 .intro-header h2 {
@@ -338,11 +333,6 @@ body {
     color: #1f1f1f;
 }
 
-.section-title i {
-    color: #0F6CBD;
-    font-size: 1.4rem;
-}
-
 .homeroom-card {
     display: flex;
     flex-wrap: wrap;
@@ -361,8 +351,15 @@ body {
     justify-content: center;
     flex-shrink: 0;
     box-shadow: 0 4px 12px rgba(15, 108, 189, 0.2);
-    font-size: 3.2rem;
-    color: white;
+}
+
+.teacher-avatar img {
+    width: 105px;
+    height: 105px;
+    object-fit: cover;
+    border-radius: 24px;
+    display: block;
+    margin: 0 auto;
 }
 
 .teacher-details {
@@ -390,15 +387,6 @@ body {
     color: #3a3a3a;
     line-height: 1.5;
     font-size: 0.95rem;
-}
-
-.teacher-contact {
-    margin-top: 0.8rem;
-    display: flex;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    font-size: 0.8rem;
-    color: #7a7a7a;
 }
 
 .teachers-grid {
@@ -453,13 +441,6 @@ body {
     font-size: 0.85rem;
     color: #6c6c6c;
     line-height: 1.4;
-}
-
-.team-tagline {
-    font-size: 0.8rem;
-    text-align: center;
-    margin-top: 1rem;
-    color: #7a7a7a;
 }
 
 /* 班级活动板块 */
@@ -543,72 +524,6 @@ body {
     line-height: 1.4;
 }
 
-/* 上传弹窗表单样式 */
-.upload-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0.2rem 0;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-
-.form-group label {
-    font-weight: 500;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-}
-
-.form-group input, .form-group textarea {
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid var(--border-subtle);
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    font-family: inherit;
-    resize: vertical;
-}
-
-.form-group input:focus, .form-group textarea:focus {
-    outline: none;
-    border-color: #0F6CBD;
-    box-shadow: 0 0 0 2px rgba(15, 108, 189, 0.2);
-}
-
-.image-preview {
-    margin-top: 0.5rem;
-    max-width: 100%;
-    text-align: center;
-}
-
-.image-preview img {
-    max-width: 100%;
-    max-height: 200px;
-    border-radius: 8px;
-    border: 1px solid var(--border-subtle);
-}
-
-.submit-btn {
-    background: #0F6CBD;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 0.5rem;
-}
-
-.submit-btn:hover {
-    background: #2B88D8;
-}
-
 /* 荣誉页面专用 */
 .honor-main-card {
     margin-bottom: 2rem;
@@ -629,6 +544,7 @@ body {
     background: rgba(15, 108, 189, 0.05);
     border-radius: 16px;
     transition: transform 0.2s;
+    cursor: pointer;
 }
 
 .honor-item:hover {
@@ -666,37 +582,13 @@ body {
     color: #8e8e93;
 }
 
-.honor-stats {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0 1rem;
-    flex-wrap: wrap;
+/* 荣誉弹窗内图片样式 */
+.honor-award-image img {
+    transition: transform 0.2s ease;
+    cursor: pointer;
 }
-
-.stat-box {
-    text-align: center;
-    padding: 1rem 1.5rem;
-    min-width: 160px;
-}
-
-.stat-box i {
-    font-size: 2rem;
-    color: #0F6CBD;
-    margin-bottom: 0.5rem;
-}
-
-.stat-number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0F6CBD;
-    line-height: 1;
-}
-
-.stat-label {
-    font-size: 0.8rem;
-    color: #5b5b5b;
-    margin-top: 0.3rem;
+.honor-award-image img:hover {
+    transform: scale(1.02);
 }
 
 /* 公共底部 */
@@ -746,9 +638,6 @@ body {
     .teacher-details {
         text-align: center;
     }
-    .teacher-contact {
-        justify-content: center;
-    }
     .class-name h1 {
         font-size: 1.6rem;
     }
@@ -759,13 +648,6 @@ body {
     }
     .honor-grid {
         grid-template-columns: 1fr;
-    }
-    .honor-stats {
-        gap: 1rem;
-    }
-    .stat-box {
-        min-width: 120px;
-        padding: 0.8rem;
     }
     .section-title {
         flex-wrap: wrap;
@@ -785,48 +667,216 @@ body {
     margin-right: 0.5rem;
 }
 
-/* 确保替换后的 Emoji 显示大小与原有图标一致 */
-.class-emblem,
-.teacher-avatar,
-.teacher-img,
-.honor-icon,
-.stat-box > span:first-child,
-.intro-header > span:first-child,
-.stat-icon,
-.slogan-icon,
-.goal-icon {
-    font-size: 1.8rem;
-    line-height: 1;
-}
-
-/* 调整统计卡片中 Emoji 位置 */
-.stat-box > span:first-child {
-    display: block;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-/* 调整卡片内图标的垂直居中 */
-.teacher-avatar {
-    font-size: 3.2rem;
+/* 铁一建校80周年专页样式*/
+.image-gallery {
     display: flex;
-    align-items: center;
     justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem;
 }
 
-/* 班主任头像图片样式 - 64x64 不拉伸 */
-.teacher-avatar img {
-    width: 105px;
-    height: 105px;
-    object-fit: cover;      /* 保持比例，裁剪填充 */
-    border-radius: 24px;    /* 与父容器圆角保持一致 */
-    display: block;
-    margin: 0 auto;         /* 在 flex 父容器中居中 */
+.image-gallery img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    object-fit: cover;
+    width: 150px; /* 桌面端固定宽度 */
+    transition: transform 0.2s;
 }
 
-/* 响应式调整：移动端适当缩小图片 */
+.anniversary-text {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #c33;                /* 红色调，突出庆祝氛围 */
+    margin: 1.5rem 0 1rem 0;
+    line-height: 1.6;
+    letter-spacing: 1px;
+}
+
+/* 铁一建校80周年专页 - 校史时间线 */
+.timeline-80th {
+    margin: 2rem 0;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.timeline-80th::before {
+    content: '';
+    position: absolute;
+    right: 114px;  /* 定位到右侧年份区域左侧 */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #c33, #c33);
+    opacity: 0.6;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 1.8rem;
+    position: relative;
+    justify-content: flex-end;  /* 将内容推到右侧 */
+}
+
+.timeline-year {
+    width: 100px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #c33;
+    text-align: left;
+    padding-left: 1.5rem;
+    order: 2;  /* 年份放在右侧 */
+    position: relative;
+}
+
+.timeline-year::after {
+    content: '';
+    position: absolute;
+    left: -6px;   /* 圆点位于年份左侧，即竖线右侧 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: #c33;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px rgba(200, 50, 40, 0.3);
+}
+
+.timeline-desc {
+    flex: 1;
+    padding-right: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #3a3a3a;
+    text-align: right;
+    order: 1;  /* 描述放在左侧 */
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .timeline-80th::before {
+        right: 82px;
+    }
+    .timeline-year {
+        width: 70px;
+        font-size: 1rem;
+        padding-left: 1rem;
+    }
+    .timeline-desc {
+        font-size: 0.85rem;
+        padding-right: 1rem;
+    }
+    .timeline-year::after {
+        left: -4px;
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* 移动端：并排显示，各占一半宽度，自动缩放 */
+@media (max-width: 768px) {
+    .image-gallery {
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .image-gallery img {
+        width: calc(50% - 0.5rem); /* 各占一半，减去间隙的一半 */
+    }
+}
+
 @media (max-width: 768px) {
     .nav-logo-img {
         height: 24px;
+    }
+}
+
+/* ========== 铁一建校80周年专页 - 左右两栏布局 ========== */
+.two-columns {
+    display: flex;
+    gap: 2rem;
+    align-items: stretch;
+    margin: 1rem 0;
+}
+
+.left-logo {
+    flex: 1;
+}
+
+.right-timeline {
+    flex: 1;
+}
+
+/* 祝福墙 - 垂直滚动容器 */
+.blessing-wall {
+    margin: 2rem 0 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(15, 108, 189, 0.2);
+    border-bottom: 1px solid rgba(15, 108, 189, 0.2);
+}
+
+.blessing-wall h3 {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #c33;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.blessing-scroll {
+    height: 320px;            /* 固定高度，超出滚动 */
+    overflow-y: auto;         /* 默认显示滚动条，用于鼠标手动滚动 */
+    padding: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: #c33 #ffe0e0;
+}
+
+.blessing-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.blessing-scroll::-webkit-scrollbar-track {
+    background: #ffe0e0;
+    border-radius: 3px;
+}
+
+.blessing-scroll::-webkit-scrollbar-thumb {
+    background: #c33;
+    border-radius: 3px;
+}
+
+.blessing-item {
+    background: rgba(255, 240, 240, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(200, 50, 40, 0.2);
+    transition: transform 0.2s;
+    color: #3a3a3a;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.blessing-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(200, 50, 40, 0.1);
+    background: rgba(255, 245, 245, 0.95);
+}
+
+/* 移动端：改为上下布局 */
+@media (max-width: 768px) {
+    .two-columns {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .left-logo {
+        order: 1;
+    }
+    .right-timeline {
+        order: 2;
     }
 }

@@ -157,44 +157,11 @@
 
             <!-- 版权信息 -->
             <div class="footer-note">
-                <p>页面使用DeepSeek和Copilot生成</p>
+                <p>柳州铁一中学（初中部）2418班<br>页面使用DeepSeek和Copilot生成</p>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import { FluentDialog } from './dialog.js';
-
-        const activityGrid = document.getElementById('activityGrid');
-
-        document.getElementById('uploadActivityBtn').addEventListener('click', () => {
-            FluentDialog.uploadActivity((activity) => {
-                const { name, description, imageDataUrl } = activity;
-                const newCard = document.createElement('div');
-                newCard.className = 'activity-card';
-                const bgImage = imageDataUrl ? `url('${imageDataUrl}')` : 'url(https://picsum.photos/id/20/300/200)';
-                newCard.innerHTML = `
-                    <div class="activity-img" style="background-image: ${bgImage}"></div>
-                    <div class="activity-info">
-                        <h3>${escapeHtml(name)}</h3>
-                        <p>${escapeHtml(description)}</p>
-                    </div>
-                `;
-                activityGrid.insertBefore(newCard, activityGrid.firstChild);
-            });
-        });
-
-        function escapeHtml(str) {
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-                return c;
-            });
-        }
-    </script>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

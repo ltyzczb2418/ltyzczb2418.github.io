@@ -68,7 +68,8 @@ const styles = `
   width: 100%;
   height: 100%;
   background-color: var(--bg-overlay);
-  animation: fadeIn 0.2s ease-out;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.15s ease-out;
 }
 
 /* 弹窗主体卡片 */
@@ -164,28 +165,6 @@ const styles = `
   outline-offset: 2px;
 }
 
-/* 次要按钮样式（取消按钮） */
-.fluent-button.secondary {
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-primary);
-  box-shadow: none;
-  padding: 9px 32px;
-  border-radius: var(--border-radius-button);
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  min-width: 100px;
-}
-.fluent-button.secondary:hover {
-  background: var(--bg-footer);
-  transform: none;
-}
-.fluent-button.secondary:active {
-  transform: scale(0.98);
-}
-
 /* 动画定义 */
 @keyframes scaleIn {
   0% { opacity: 0; transform: scale(var(--dialog-scale-in, 1.075)); }
@@ -201,10 +180,10 @@ const styles = `
 }
 
 .fluent-dialog.closing .dialog-overlay {
-  animation: fadeIn 0.3s ease-out reverse;
+  animation: fadeIn 0.1s ease-out reverse;
 }
 .fluent-dialog.closing .dialog-container {
-  animation: scaleOut 0.3s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  animation: scaleOut 0.15s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
 }
 
 /* 上传表单样式（内嵌） */
