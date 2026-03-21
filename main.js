@@ -1,70 +1,102 @@
-// main.js - 加载导航栏、页面切换动画、不定状态加载条
+// main.js - 加载导航栏、页面切换动画、居中旋转加载指示器（匀速旋转）
 
 (function() {
-    // 动态创建加载条样式（确保动画全局可用）
-    function injectProgressBarStyles() {
-        if (document.getElementById('progress-styles')) return;
+    // 动态创建加载指示器样式（居中的圆环旋转）
+    function injectSpinnerStyles() {
+        if (document.getElementById('spinner-styles')) return;
         const style = document.createElement('style');
-        style.id = 'progress-styles';
+        style.id = 'spinner-styles';
         style.textContent = `
-            #global-progress-bar {
+            /* 半透明遮罩层 */
+            .loading-overlay {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 3px;
-                background: linear-gradient(90deg, #0F6CBD 0%, #2B88D8 25%, #0F6CBD 50%, #2B88D8 75%, #0F6CBD 100%);
-                background-size: 200% 100%;
-                z-index: 10001;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(4px);
+                z-index: 10002;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.2s ease, visibility 0.2s ease;
                 pointer-events: none;
-                box-shadow: 0 0 4px rgba(15,108,189,0.5);
             }
-            #global-progress-bar.active {
-                transform: translateX(0);
-                animation: progressIndeterminate 1.5s infinite linear;
+            .loading-overlay.active {
+                opacity: 1;
+                visibility: visible;
             }
-            @keyframes progressIndeterminate {
-                0% {
-                    background-position: 0% 0;
+            /* WinUI 3 风格的旋转圆环 - 匀速转动 */
+            .winui-spinner {
+                width: 48px;
+                height: 48px;
+                position: relative;
+                animation: rotate 3.5s linear infinite;
+            }
+            .winui-spinner-circle {
+                box-sizing: border-box;
+                width: 100%;
+                height: 100%;
+                border: 4px solid rgba(15, 108, 189, 0.2);
+                border-top-color: #0F6CBD;
+                border-radius: 50%;
+                animation: spin 5s linear infinite;
+            }
+            @keyframes rotate {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            @media (max-width: 640px) {
+                .winui-spinner {
+                    width: 40px;
+                    height: 40px;
                 }
-                100% {
-                    background-position: 200% 0;
+                .winui-spinner-circle {
+                    border-width: 3px;
                 }
             }
         `;
         document.head.appendChild(style);
     }
 
-    let progressBar = null;
+    let overlay = null;
+    let spinner = null;
 
-    function createProgressBar() {
-        if (progressBar) return;
-        injectProgressBarStyles();
-        const bar = document.createElement('div');
-        bar.id = 'global-progress-bar';
-        document.body.appendChild(bar);
-        progressBar = bar;
+    function createSpinnerOverlay() {
+        if (overlay) return;
+        injectSpinnerStyles();
+        // 创建遮罩层
+        const div = document.createElement('div');
+        div.className = 'loading-overlay';
+        // 创建圆环容器
+        const spinnerContainer = document.createElement('div');
+        spinnerContainer.className = 'winui-spinner';
+        const circle = document.createElement('div');
+        circle.className = 'winui-spinner-circle';
+        spinnerContainer.appendChild(circle);
+        div.appendChild(spinnerContainer);
+        document.body.appendChild(div);
+        overlay = div;
+        spinner = spinnerContainer;
     }
 
     function showProgressBar() {
-        createProgressBar();
-        // 强制重绘后添加 active 类，触发动画
+        createSpinnerOverlay();
         requestAnimationFrame(() => {
-            progressBar.classList.add('active');
+            overlay.classList.add('active');
         });
     }
 
     function hideProgressBar() {
-        if (progressBar) {
-            progressBar.classList.remove('active');
-            // 可选：延迟移除，避免闪现
-            setTimeout(() => {
-                if (progressBar && !progressBar.classList.contains('active')) {
-                    // 保持存在，下次直接使用
-                }
-            }, 300);
+        if (overlay) {
+            overlay.classList.remove('active');
         }
     }
 
@@ -111,7 +143,7 @@
         if (isTransitioning) return;
         isTransitioning = true;
 
-        // 显示不定状态加载条
+        // 显示居中旋转加载指示器
         showProgressBar();
 
         const currentContent = document.getElementById('page-content');
@@ -126,7 +158,6 @@
         fetch(url)
             .then(response => response.text())
             .then(html => {
-                // 提取新页面的 #page-content 内容
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 const newContent = doc.getElementById('page-content');
@@ -143,15 +174,12 @@
 
                 currentContent.classList.add(exitClass);
 
-                // 等待退出动画完成
                 setTimeout(() => {
                     // 替换内容
                     currentContent.innerHTML = newContent.innerHTML;
-                    // 移除退出动画类，添加入场动画类
                     currentContent.classList.remove(exitClass);
                     currentContent.classList.add(enterClass);
 
-                    // 等待入场动画完成
                     setTimeout(() => {
                         currentContent.classList.remove(enterClass);
                         isTransitioning = false;
@@ -176,7 +204,7 @@
                             }
                         }
 
-                        // 隐藏加载条
+                        // 隐藏加载指示器
                         hideProgressBar();
                     }, 400);
                 }, 400);
