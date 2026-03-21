@@ -814,6 +814,16 @@ body {
     justify-content: center;
 }
 
+/* 班主任头像图片样式 - 64x64 不拉伸 */
+.teacher-avatar img {
+    width: 105px;
+    height: 105px;
+    object-fit: cover;      /* 保持比例，裁剪填充 */
+    border-radius: 24px;    /* 与父容器圆角保持一致 */
+    display: block;
+    margin: 0 auto;         /* 在 flex 父容器中居中 */
+}
+
 /* 响应式调整：移动端适当缩小图片 */
 @media (max-width: 768px) {
     .nav-logo-img {
