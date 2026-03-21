@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>星火班 | 燎原中队 - 主页</title>
+    <title>2418班 - 主页</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- 导航栏容器，由 main.js 动态填充 -->
     <div id="header-container"></div>
 
-    <!-- 页面内容容器，用于切换动画 -->
     <div id="page-content">
         <div class="container">
             <!-- 头部区域：班徽 + 班名 -->
             <div class="hero-section">
                 <div class="brand-block">
                     <div class="class-emblem">
-                        <i class="fas fa-fire"></i>
+                        <img src="img/班徽.png" alt="班徽" width="64" height="64">
                     </div>
                     <div class="class-name">
-                        <h1>星火班 · 燎原中队</h1>
-                        <p><i class="fas fa-map-pin"></i> 聚是一团火 · 散作满天星</p>
+                        <h1>柳州铁一中学（初中部）2418班</h1>
+                        <p>追梦18，不负韶华</p>
                     </div>
                 </div>
             </div>
@@ -31,34 +27,32 @@
             <!-- 班级介绍板块 -->
             <div id="intro" class="class-intro-card">
                 <div class="intro-header">
-                    <i class="fas fa-info-circle"></i>
+                    <span class="intro-icon">ℹ️</span>
                     <h2>班级介绍</h2>
                 </div>
                 <div class="intro-content">
                     <div class="intro-stat">
-                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-icon">👥</div>
                         <div class="stat-info">
                             <h3>班级人数</h3>
-                            <div class="num">48<span>人</span></div>
-                            <div class="gender-balance">男生24 · 女生24</div>
+                            <div class="num">56<span>人</span></div>
+                            <div class="gender-balance">男生30人 · 女生26人</div>
                         </div>
                     </div>
                     <div class="intro-slogan">
-                        <div class="slogan-icon"><i class="fas fa-bullhorn"></i></div>
+                        <div class="slogan-icon">📢</div>
                         <div class="slogan-text">
                             <h3>班级口号</h3>
                             <p>“ 星火闪耀，逐梦奔跑；齐心燎原，共创辉煌！”</p>
-                            <span class="slogan-sub">✨ 激情澎湃 · 星火不败 ✨</span>
                         </div>
                     </div>
                     <div class="intro-goal">
-                        <div class="goal-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="goal-icon">📈</div>
                         <div class="goal-text">
                             <h3>班级目标</h3>
                             <ul>
-                                <li>🌟 学业共进，品德先行，打造温暖奋进的卓越集体。</li>
-                                <li>🌟 每个成员眼里有光，脚下有路，成为最好的自己。</li>
-                                <li>🌟 争创校级“优秀班级”，班风学风双标杆。</li>
+                                <li>🌟 促进学生在德、智、体、美、劳各方面的全面发展。</li>
+                                <li>🌟 形成积极向上的班级文化，提升学生的综合素质，培养学生的创新能力和实践能力。</li>
                             </ul>
                         </div>
                     </div>
@@ -68,21 +62,21 @@
             <!-- 班主任信息板块 -->
             <div id="homeroom" class="teacher-section">
                 <div class="section-title">
-                    <i class="fas fa-chalkboard-user"></i>
+                    <span>👩‍🏫</span>
                     <span>班主任 · 领航人</span>
                 </div>
                 <div class="homeroom-card">
-                    <div class="teacher-avatar"><i class="fas fa-leaf"></i></div>
+                    <div class="teacher-avatar">🍃</div>
                     <div class="teacher-details">
                         <h2>林清韵 老师</h2>
-                        <div class="teacher-subject"><i class="fas fa-book-open"></i> 语文教师 · 班主任</div>
+                        <div class="teacher-subject">📖 语文教师 · 班主任</div>
                         <div class="teacher-bio">
                             🌸 教育格言：教育是一场温暖的修行，用爱与智慧点亮每一颗星火。<br>
                             📖 从教12年，市级优秀班主任，倡导“自主管理+人文关怀”带班模式。热爱阅读与书法，坚信每个孩子都有独特的闪光点。
                         </div>
                         <div class="teacher-contact">
-                            <span><i class="fas fa-phone-alt"></i> 教育热线 · 班级群</span>
-                            <span><i class="fas fa-envelope"></i> spark_class@edu.cn</span>
+                            <span>📞 教育热线 · 班级群</span>
+                            <span>✉️ spark_class@edu.cn</span>
                         </div>
                     </div>
                 </div>
@@ -91,55 +85,102 @@
             <!-- 科任教师信息板块 -->
             <div id="teachers" class="teacher-section">
                 <div class="section-title">
-                    <i class="fas fa-chalkboard"></i>
+                    <span>📚</span>
                     <span>科任教师团队 · 引路人</span>
                 </div>
                 <div class="teachers-grid">
                     <div class="teacher-item">
-                        <div class="teacher-img"><i class="fas fa-square-root-alt"></i></div>
+                        <div class="teacher-img">🧮</div>
                         <div class="teacher-name">赵砚秋</div>
-                        <div class="teacher-course">🧮 数学老师</div>
+                        <div class="teacher-course">数学老师</div>
                         <div class="teacher-desc">逻辑清晰，课堂风趣，善于启发思维，多次带队竞赛获奖。信奉“数学让思维发光”。</div>
                     </div>
                     <div class="teacher-item">
-                        <div class="teacher-img"><i class="fas fa-language"></i></div>
+                        <div class="teacher-img">🇬🇧</div>
                         <div class="teacher-name">许若溪</div>
-                        <div class="teacher-course">🇬🇧 英语老师</div>
+                        <div class="teacher-course">英语老师</div>
                         <div class="teacher-desc">口语纯正，沉浸式教学，英文原版阅读推广者。课堂活力满满，让每个孩子敢说爱说。</div>
                     </div>
                     <div class="teacher-item">
-                        <div class="teacher-img"><i class="fas fa-atom"></i></div>
+                        <div class="teacher-img">⚛️</div>
                         <div class="teacher-name">周明远</div>
-                        <div class="teacher-course">⚛️ 物理老师</div>
+                        <div class="teacher-course">物理老师</div>
                         <div class="teacher-desc">实验狂人，用趣味实验揭秘万物之理，培养学生科学探究精神，校科技辅导员。</div>
                     </div>
                     <div class="teacher-item">
-                        <div class="teacher-img"><i class="fas fa-flask"></i></div>
+                        <div class="teacher-img">🧪</div>
                         <div class="teacher-name">陈知微</div>
-                        <div class="teacher-course">🧪 化学老师</div>
+                        <div class="teacher-course">化学老师</div>
                         <div class="teacher-desc">化繁为简，生活化学引路人，温柔耐心，化学竞赛优秀指导教师。</div>
                     </div>
                     <div class="teacher-item">
-                        <div class="teacher-img"><i class="fas fa-landmark"></i></div>
+                        <div class="teacher-img">📜</div>
                         <div class="teacher-name">顾文昭</div>
-                        <div class="teacher-course">📜 历史老师</div>
+                        <div class="teacher-course">历史老师</div>
                         <div class="teacher-desc">博古通今，故事里学智慧，让历史鲜活起来，深受学生喜爱的“故事大王”。</div>
                     </div>
                     <div class="teacher-item">
-                        <div class="teacher-img"><i class="fas fa-futbol"></i></div>
+                        <div class="teacher-img">⚽</div>
                         <div class="teacher-name">杨浩东</div>
-                        <div class="teacher-course">⚽ 体育老师</div>
+                        <div class="teacher-course">体育老师</div>
                         <div class="teacher-desc">阳光活力，校篮球队教练，注重体能+团队精神，坚信强健体魄乃成才根基。</div>
                     </div>
                     <div class="teacher-item">
-                        <div class="teacher-img"><i class="fas fa-gavel"></i></div>
+                        <div class="teacher-img">⚖️</div>
                         <div class="teacher-name">沈静秋</div>
-                        <div class="teacher-course">⚖️ 道德与法治</div>
+                        <div class="teacher-course">道德与法治</div>
                         <div class="teacher-desc">引导学生树立正确价值观，课堂思辨激荡，温暖又理性，学生心中的知心姐姐。</div>
                     </div>
                 </div>
                 <div class="team-tagline">
-                    <i class="fas fa-heart"></i> 多元师资，助力星火少年全面发展
+                    ❤️ 多元师资，助力星火少年全面发展
+                </div>
+            </div>
+
+            <!-- 班级活动板块 -->
+            <div id="activities" class="activity-section">
+                <div class="section-title">
+                    <span>🎉</span>
+                    <span>班级活动 · 精彩瞬间</span>
+                    <button class="upload-activity-btn" id="uploadActivityBtn">➕ 上传新活动</button>
+                </div>
+                <div class="activity-grid" id="activityGrid">
+                    <!-- 预置活动卡片（5个） -->
+                    <div class="activity-card">
+                        <div class="activity-img" style="background-image: url(/img/photo/八上研学.webp)"></div>
+                        <div class="activity-info">
+                            <h3>八上研学</h3>
+                            <p>全班同游，坐船、烧烤。</p>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-img" style="background-image: url(/img/photo/八上运动会.webp)"></div>
+                        <div class="activity-info">
+                            <h3>八上校运会</h3>
+                            <p>学校达标运动会，全班参加。</p>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-img" style="background-image: url(/img/photo/七下运动会.webp)"></div>
+                        <div class="activity-info">
+                            <h3>七下校运会</h3>
+                            <p>学校校运会，班级运动精英上场。</p>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-img" style="background-image: url(/img/photo/七上美食节.webp)"></div>
+                        <div class="activity-info">
+                            <h3>七上元旦晚会&美食节</h3>
+                            <p>元旦快乐！</p>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-img" style="background-image: url(/img/photo/七上研学.webp)"></div>
+                        <div class="activity-info">
+                            <h3>七上研学</h3>
+                            <p>小游戏，快乐玩耍。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -150,6 +191,39 @@
         </div>
     </div>
 
+    <script type="module">
+        import { FluentDialog } from './dialog.js';
+
+        const activityGrid = document.getElementById('activityGrid');
+
+        document.getElementById('uploadActivityBtn').addEventListener('click', () => {
+            FluentDialog.uploadActivity((activity) => {
+                const { name, description, imageDataUrl } = activity;
+                const newCard = document.createElement('div');
+                newCard.className = 'activity-card';
+                const bgImage = imageDataUrl ? `url('${imageDataUrl}')` : 'url(https://picsum.photos/id/20/300/200)';
+                newCard.innerHTML = `
+                    <div class="activity-img" style="background-image: ${bgImage}"></div>
+                    <div class="activity-info">
+                        <h3>${escapeHtml(name)}</h3>
+                        <p>${escapeHtml(description)}</p>
+                    </div>
+                `;
+                activityGrid.insertBefore(newCard, activityGrid.firstChild);
+            });
+        });
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+                return c;
+            });
+        }
+    </script>
     <script src="main.js"></script>
 </body>
 </html>
